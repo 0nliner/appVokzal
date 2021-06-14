@@ -1,6 +1,7 @@
 import './App.css';
-import {BrowserRouter, Route, Link} from "react-router-dom";
+import {BrowserRouter, Route, Link, Switch} from "react-router-dom";
 import {PersonalArea} from "./pages/PersonalArea";
+import {TripPage} from "./pages/TripPage";
 
 
 function App() {
@@ -11,7 +12,7 @@ function App() {
           {/*<Route path={"/login_page"} component={}/>*/}
           {/*<Route path={"/register_page"} component={}/>*/}
           <Route path={"/personal area"} component={PersonalArea}/>
-
+          <Route path={"/trip"} component={TripPage}/>
         </div>
       </BrowserRouter>
   );

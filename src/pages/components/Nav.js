@@ -55,13 +55,13 @@ export function Nav() {
 
             {/* TODO: как появятся иконки для навигации - подкючить их тут*/}
             <List>
-                {['Код', 'подарок и бонусы', 'История', 'Помощь', 'Настройки'].map((text, index) => (
-                    <ListItem button key={'Код'}>
-                        {/* это типо для иконок навигации*/}
+                {/*{['Код', 'подарок и бонусы', 'История', 'Помощь', 'Настройки'].map((text, index) => (*/}
+                {/*    <ListItem button key={'Код'}>*/}
+                {/*         это типо для иконок навигации*/}
                         {/*<ListItemIcon></ListItemIcon>*/}
-                        <ListItemText primary={'Код'} />
-                    </ListItem>
-                ))}
+                        {/*<ListItemText primary={'Код'} />*/}
+                    {/*</ListItem>*/}
+                {/*))}*/}
             </List>
             <Divider />
             <List>
