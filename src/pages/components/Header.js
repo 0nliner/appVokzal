@@ -45,7 +45,7 @@ export function Header() {
     //
     return (
         <div className={classes.root}>
-            <AppBar position="static">
+            <AppBar position="static" style={{backgroundColor: "black"}}>
                 <Toolbar>
                     <Nav/>
                     <Typography variant="h5" className={classes.title}>
