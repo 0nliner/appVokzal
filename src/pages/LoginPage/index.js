@@ -15,7 +15,12 @@ let useStyles = makeStyles(theme => ({
 
 export function LoginPage (props) {
     let classes = useStyles();
-
+    const auth = () => {
+        window.location.assign('http://localhost:3000/map');
+    };
+    const link = () => {
+        window.location.assign('http://localhost:3000/registration');
+    };
     return (
         <Container maxWidth={"sm"}>
             <Typography variant={"h6"} style={{marginTop: 30}}>
@@ -38,11 +43,11 @@ export function LoginPage (props) {
 
 
             <Grid container justify={"center"} direction={"column"}>
-                <Button variant={"contained"} color={"primary"} style={{marginBottom: 10}}>
+                <Button onClick={auth} variant={"contained"} color={"primary"} style={{marginBottom: 10}}>
                     Войти
                 </Button>
 
-                <Button variant={"contained"} color={"primary"}>
+                <Button onClick={link}  variant={"contained"} color={"primary"}>
                     Создать аккаунт
                 </Button>
 

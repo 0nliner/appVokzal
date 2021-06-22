@@ -11,9 +11,14 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-
-
+import { Avatar, Typography } from '@material-ui/core';
+import FlagIcon from '@material-ui/icons/Flag';
+import Link from '@material-ui/core/Link'
 const useStyles = makeStyles((theme)=>({
+        root: {
+            display: 'flex',
+            justifyContent: 'center',
+        },
         list: {
             width: 250,
         },
@@ -23,6 +28,10 @@ const useStyles = makeStyles((theme)=>({
         menuButton: {
             marginRight: theme.spacing(2),
         },
+        large: {
+            width: theme.spacing(7),
+            height: theme.spacing(7),
+        }
     })
 );
 
@@ -43,7 +52,30 @@ export function Nav() {
         setState({ ...state, [anchor]: open });
     };
 
-    const list = (anchor) => (
+    const list = (anchor) => {
+        const link = (param) => {
+            switch (param) {
+              case 0:
+                return "/account";
+              case 1:
+                return "/trip";
+              case 2:
+                return "/trips";
+              case 3:
+                return "/reservations";
+              case 4:
+                return "/findTrip";
+              case 5:
+                return "/observeTrip";
+              case 6:
+                return "/map";
+              case 7:
+                return "/dialog";
+              default:
+                return "/map";
+            }
+          }
+        return (
         <div
             className={clsx(classes.list, {
                 [classes.fullList]: anchor === 'top' || anchor === 'bottom',
@@ -55,25 +87,36 @@ export function Nav() {
 
             {/* TODO: как появятся иконки для навигации - подкючить их тут*/}
             <List>
-                {/*{['Код', 'подарок и бонусы', 'История', 'Помощь', 'Настройки'].map((text, index) => (*/}
+                <div className={classes.root}>
+                <Avatar alt="Avatar Image" src="../../images/avatar.png" className={classes.large} />
+                </div>
+                <Typography align="center" variant="h5">Elon Mask</Typography>
+                <Typography align="center">Timba20@yandex.ru</Typography>
+                <Typography align="center">+79320964396</Typography>
+                {/* {['Код', 'подарок и бонусы', 'История', 'Помощь', 'Настройки'].map((text, index) => (*/}
                 {/*    <ListItem button key={'Код'}>*/}
                 {/*         это типо для иконок навигации*/}
                         {/*<ListItemIcon></ListItemIcon>*/}
                         {/*<ListItemText primary={'Код'} />*/}
                     {/*</ListItem>*/}
-                {/*))}*/}
+                {/*))} */}
             </List>
             <Divider />
             <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                    <ListItem button key={text}>
+                {/* <ListItem>
+                    <ListItemIcon> <FlagIcon /> </ListItemIcon>
+                    <ListItemText primary="Код"></ListItemText>
+                </ListItem> */}
+                {['Профиль', 'Поездка', 'Все поездки', 'Бронирование', 'Найти поездку', 'Выбрать поездку', 'Карта', 'Чат'].map((text, index) => (
+                    <ListItem button  component={Link} href={link(index)}>
                         <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
                         <ListItemText primary={text} />
                     </ListItem>
                 ))}
             </List>
         </div>
-    );
+        );
+    }
 
     return (
         <React.Fragment key={"left"}>
