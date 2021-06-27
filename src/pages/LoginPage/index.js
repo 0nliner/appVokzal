@@ -11,6 +11,23 @@ let useStyles = makeStyles(theme => ({
         border: "none",
         borderRadius: 10
     },
+    logo: {
+        color: "rgba(62, 89, 130, 1)",
+        fontFamily: "Montserrat",
+        fontWeight: "500",
+        fontSize: "22px",
+        marginTop: 20,
+        letterSpacing: "0.500em",
+        textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+    },
+    btn: {
+        backgroundColor: "rgba(41, 67, 103, 1)",
+        color: "rgba(255, 255, 255, 1)",
+        fontSize: "12px",
+        textTransform: "none"
+    }
+
+
 }));
 
 export function LoginPage (props) {
@@ -23,19 +40,24 @@ export function LoginPage (props) {
     };
     return (
         <Container maxWidth={"sm"}>
-            <Typography variant={"h6"} style={{marginTop: 30}}>
-                Авторизируйтесь
+
+            <Typography variant={"h4"} className={classes.logo}>
+                APPVOKZAL
+            </Typography>
+
+            <Typography variant={"h6"} style={{marginTop: 20, fontSize: "15px", fontWeight: "600"}}>
+                Авторизуйтесь
             </Typography>
 
             <input className={classes.input}
                    placeholder={"E-mail или номер телефона"}
                    style={{
                        marginBottom: 10,
-                       marginTop: 40
+                       marginTop: 40,
                    }}/>
 
             <input className={classes.input}
-                   placeholder={"пароль"}
+                   placeholder={"Пароль"}
                    type={"password"}
                    style={{
                         marginBottom: 40,
@@ -43,16 +65,16 @@ export function LoginPage (props) {
 
 
             <Grid container justify={"center"} direction={"column"}>
-                <Button onClick={auth} variant={"contained"} color={"primary"} style={{marginBottom: 10}}>
+                <Button className={classes.btn} onClick={auth} variant={"contained"} color={"primary"} style={{marginBottom: 10}}>
                     Войти
                 </Button>
 
-                <Button onClick={link}  variant={"contained"} color={"primary"}>
-                    Создать аккаунт
+                <Button className={classes.btn} onClick={link}  variant={"contained"} color={"primary"}>
+                    Зарегистироваться
                 </Button>
 
-                <Typography variant={"caption"} style={{marginTop: 20, color: "#91B3FA"}}>
-                    восстановить пароль
+                <Typography variant={"caption"} style={{marginTop: 20, color: "rgba(128, 160, 206, 1)"}}>
+                    Забыли пароль?
                 </Typography>
 
             </Grid>

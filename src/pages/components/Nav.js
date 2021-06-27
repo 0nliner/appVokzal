@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme)=>({
             width: 'auto',
         },
         menuButton: {
-            marginRight: theme.spacing(2),
+            color: "rgba(62, 89, 130, 1)"
         },
         large: {
             width: theme.spacing(7),
@@ -122,7 +122,7 @@ export function Nav() {
         <React.Fragment key={"left"}>
             <IconButton edge="start"
                         className={classes.menuButton}
-                        color="inherit"
+                        color="rgba(62, 89, 130, 1)"
                         aria-label="menu"
                         onClick={toggleDrawer("left", true)}>
                 <MenuIcon />

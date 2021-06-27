@@ -16,12 +16,21 @@ import {Nav} from "./Nav";
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
+        boxShadow: "none",
+        background: "transparent"
     },
     menuButton: {
-        marginRight: theme.spacing(2),
+        color: "rgba(62, 89, 130, 1)",
     },
     title: {
         flexGrow: 1,
+        color: "rgba(62, 89, 130, 1)",
+        fontFamily: "Montserrat",
+        fontWeight: "500",
+        fontSize: "18px",
+        letterSpacing: "0.500em",
+        textTransform: "uppercase",
+        textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
     },
 }));
 
@@ -44,43 +53,15 @@ export function Header() {
     };
     //
     return (
-        <div className={classes.root}>
-            <AppBar position="static" style={{backgroundColor: "black"}}>
+        <div >
+            <AppBar className={classes.root} position="static">
                 <Toolbar>
-                    <Nav/>
+                    <Nav color="rgba(62, 89, 130, 1)" className={classes.menuButton}/>
                     <Typography variant="h5" className={classes.title}>
                         AppVokzal
                     </Typography>
 
-                        <div>
-                            <IconButton
-                                aria-label="account of current user"
-                                aria-controls="menu-appbar"
-                                aria-haspopup="true"
-                                onClick={handleMenu}
-                                color="inherit"
-                            >
-                                <AccountCircle />
-                            </IconButton>
-                            <Menu
-                                id="menu-appbar"
-                                anchorEl={anchorEl}
-                                anchorOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                open={open}
-                                onClose={handleClose}
-                            >
-                                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                                <MenuItem onClick={handleClose}>My account</MenuItem>
-                            </Menu>
-                        </div>
+                        
                 </Toolbar>
             </AppBar>
         </div>
