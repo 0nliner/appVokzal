@@ -1,5 +1,5 @@
 import {Box, makeStyles} from "@material-ui/core";
-import {Header} from "../components/Header";
+import { Nav } from '../components/Nav';
 
 import mapboxgl from 'mapbox-gl';
 import {useEffect, useRef, useState} from "react"; // eslint-disable-line import/no-webpack-loader-syntax
@@ -10,7 +10,12 @@ mapboxgl.accessToken = "pk.eyJ1IjoibjBubGluZXIiLCJhIjoiY2txNmNmN3BvMWJ1NzJwb2M1c
 
 let useMapStyles = makeStyles(theme => ({
     map: {
-        height: "100vh"
+        height: "100vh",
+    },
+    nav: {
+        width: 80,
+        position: "absolute",
+        top: 10,
     }
 }));
 
@@ -35,7 +40,9 @@ export function MapPage (props) {
 
     return (
         <Box>
-            <Header/>
+            <div className={classes.nav}>
+                <Nav />
+            </div>
             <div ref={mapContainer} className={classes.map}  />
         </Box>
     );
