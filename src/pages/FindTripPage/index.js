@@ -41,9 +41,13 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import AvatarDemo from "../../images/avatar.png";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import {KeyboardArrowLeft, KeyboardArrowRight} from "@material-ui/icons";
-
-
-
+import { createStore } from "redux";
+import { root_reducer } from "../../redux/findTrips/reducers";
+import { seatsSelector, searchSelector } from "../../redux/findTrips/selectors";
+import { useSelector } from "react-redux";
+import { Provider } from "react-redux";
+import {add_count, remove_count, add_length, add_weight, add_width, remove_length, remove_weight, remove_width, change_city, change_city_from, change_city_to} from '../../redux/findTrips/actions';
+const store = createStore(root_reducer);
 
 // --------------------- Search component -------------
 const useSearchStyles = makeStyles( theme => ({
@@ -74,24 +78,30 @@ const useSearchStyles = makeStyles( theme => ({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        color: "black",
         borderRadius: "50%",
         border: "none",
         background: "#FFFFFF",
         boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)",
-        "&:active": {
+        "&:hover": {
             border: "none",
-            color: "black"
+            background: "white"
         }
     }
 }));
 const Search = () => {
     const classes = useSearchStyles();
-    
+    const city = useSelector(searchSelector);
+    const change_city_btn = () => {
+      store.dispatch(change_city())
+      // console.log(city)
+    };
+
     return (
         <Container className={classes.root}>
-            <input placeholder="Откуда" type="text" className={classes.input} />
-            <input placeholder="Куда" type="text" className={classes.input} />
-            <button className={classes.swap}><SwapVertIcon /></button>
+            <input onChange={e => store.dispatch(change_city_from(e.target.value))} value={city.from} placeholder="Откуда" type="text"  className={classes.input} />
+            <input onChange={e => store.dispatch(change_city_to(e.target.value))} value={city.to} placeholder="Куда" type="text"  className={classes.input} />
+            <IconButton onClick={change_city_btn} className={classes.swap}><SwapVertIcon /></IconButton>
         </Container>
     );
 }
@@ -185,7 +195,43 @@ const Service = () => {
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
+  const seats = useSelector(seatsSelector);
+  // console.log(seats)
+  const decrement_count = () => {
+    store.dispatch(remove_count());
+  }
+
+  const decrement_width = () => {
+    store.dispatch(remove_width());
+  }
+
+  const decrement_length = () => {
+    store.dispatch(remove_length());
+  }
+
+  const decrement_weight = () => {
+    store.dispatch(remove_weight());
+  }
+
+  const increment_count = () => {
+    store.dispatch(add_count());
+  }
+
+  const increment_width = () => {
+    store.dispatch(add_width());
+  }
+
+  const increment_length = () => {
+    store.dispatch(add_length());
+  }
+
+  const increment_weight = () => {
+    store.dispatch(add_weight());
+  }
+  
+  
     return (
+      
         <div>
         <Tabs  variant="scrollable" value={value} onChange={handleChange} indicatorColor="primary" textColor="primary" className={classes.root}>
             
@@ -202,14 +248,15 @@ const Service = () => {
         {
           ["1","2","3","4","5","6","8"].map(item => {
             return (
+              
               <TabPanel value={value} index={item}>
                 <div className={classes.seats}>
-                  <Typography variant="body1"> Кол-во мест: {2}</Typography>
+                  <Typography variant="body1"> Кол-во мест: {seats.count}</Typography>
                   <div>
-                    <IconButton style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA"}} aria-label="remove">
+                    <IconButton onClick={decrement_count} style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA"}} aria-label="remove">
                       <RemoveIcon style={{fontSize: "15px"}} />
                     </IconButton>
-                    <IconButton style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA", marginLeft: 6}} aria-label="add">
+                    <IconButton onClick={increment_count} style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA", marginLeft: 6}} aria-label="add">
                     <AddIcon style={{fontSize: "15px"}}/>
                     </IconButton>
                   </div>
@@ -243,11 +290,11 @@ const Service = () => {
             <div className={classes.itemDelivery}>
               <Typography variant="caption">Ширина(см)</Typography>
               <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
-                <IconButton style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA", width: 20, height: 20}} aria-label="remove">
+                <IconButton onClick={decrement_width} style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA", width: 20, height: 20}} aria-label="remove">
                   <RemoveIcon style={{fontSize: "12px"}} />
                 </IconButton>
-                <Typography style={{marginRight: 5, marginLeft: 5}} variant="body2">{20}</Typography>
-                <IconButton style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA", width: 20, height: 20}} aria-label="add">
+                <Typography style={{marginRight: 5, marginLeft: 5}} variant="body2">{seats.width}</Typography>
+                <IconButton onClick={increment_width} style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA", width: 20, height: 20}} aria-label="add">
                   <AddIcon style={{fontSize: "12px"}}/>
                 </IconButton>
               </div>
@@ -255,11 +302,11 @@ const Service = () => {
               <div className={classes.itemDelivery}>
               <Typography variant="caption">Длина(см)</Typography>
               <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
-                <IconButton style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA", width: 20, height: 20}} aria-label="remove">
+                <IconButton onClick={decrement_length} style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA", width: 20, height: 20}} aria-label="remove">
                   <RemoveIcon style={{fontSize: "12px"}} />
                 </IconButton>
-                <Typography style={{marginRight: 5, marginLeft: 5}} variant="body2">{20}</Typography>
-                <IconButton style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA", width: 20, height: 20}} aria-label="add">
+                <Typography style={{marginRight: 5, marginLeft: 5}} variant="body2">{seats.length}</Typography>
+                <IconButton onClick={increment_length} style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA", width: 20, height: 20}} aria-label="add">
                   <AddIcon style={{fontSize: "12px"}}/>
                 </IconButton>
               </div>
@@ -267,23 +314,23 @@ const Service = () => {
               <div className={classes.itemDelivery}>
               <Typography variant="caption">Вес(кг)</Typography>
               <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
-                <IconButton style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA", width: 20, height: 20}} aria-label="remove">
+                <IconButton onClick={decrement_weight} style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA", width: 20, height: 20}} aria-label="remove">
                   <RemoveIcon style={{fontSize: "12px"}} />
                 </IconButton>
-                <Typography style={{marginRight: 5, marginLeft: 5}} variant="body2">{20}</Typography>
-                <IconButton style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA", width: 20, height: 20}} aria-label="add">
+                <Typography style={{marginRight: 5, marginLeft: 5}} variant="body2">{seats.weight}</Typography>
+                <IconButton onClick={increment_weight} style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA", width: 20, height: 20}} aria-label="add">
                   <AddIcon style={{fontSize: "12px"}}/>
                 </IconButton>
               </div>
             </div>
           </div>
         <div className={classes.seats}>
-                  <Typography variant="body1"> Кол-во мест: {2}</Typography>
+                  <Typography variant="body1"> Кол-во мест: {seats.count}</Typography>
                   <div>
-                    <IconButton style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA"}} aria-label="remove">
+                    <IconButton onClick={decrement_count} style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA"}} aria-label="remove">
                       <RemoveIcon style={{fontSize: "15px"}} />
                     </IconButton>
-                    <IconButton style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA", marginLeft: 6}} aria-label="add">
+                    <IconButton onClick={increment_count} style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA", marginLeft: 6}} aria-label="add">
                     <AddIcon style={{fontSize: "15px"}}/>
                     </IconButton>
                   </div>
@@ -310,6 +357,7 @@ const Service = () => {
                   </div>
         </TabPanel>
         </div>
+     
     )
 }
 
@@ -404,6 +452,7 @@ const Drivers = (props) => {
 
 export const FindTripPage = (props) => {
     return (
+      <Provider store={store}>
             <Box>
                 <Header/>
                 <Container>
@@ -412,5 +461,6 @@ export const FindTripPage = (props) => {
                     <Drivers />
                 </Container>
             </Box>
+      </Provider>
         );
 }

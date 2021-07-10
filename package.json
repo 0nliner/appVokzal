@@ -17,7 +17,9 @@
     "react-scripts": "4.0.3",
     "react-swipeable-views": "^0.14.0",
     "react-swipeable-views-utils": "^0.14.0",
-    "redux": "^4.1.0"
+    "redux": "^4.1.0",
+    "reselect": "^4.0.0",
+    "reselector": "^0.21.0"
   },
   "scripts": {
     "start": "react-scripts start",
