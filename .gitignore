@@ -1,1 +1,11 @@
 /venv/
+
+#/cars/migrations/
+#/chats/migrations/
+#/marks/migrations/
+#/trips/migrations/
+#/users/migrations/
+#/reviews/migrations/
+/migrations/
+db.sqlite3
+

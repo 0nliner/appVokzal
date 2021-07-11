@@ -21,6 +21,7 @@ class Mark(models.Model):
 
     title = models.CharField(max_length=300)
     mark_type = models.CharField(
+        max_length=30,
         choices=(
             ("Camera", "Камера"),
             ("Cafe", "Кафе"),
@@ -28,11 +29,13 @@ class Mark(models.Model):
         )
     )
 
-    num_stars = models.CharField(choises=(
-        ("1", "1"),
-        ("2", "2"),
-        ("3", "3"),
-        ("4", "4"),
-        ("5", "5")),
+    num_stars = models.CharField(
+        max_length=1,
+        choices=(
+            ("1", "1"),
+            ("2", "2"),
+            ("3", "3"),
+            ("4", "4"),
+            ("5", "5")),
         verbose_name="Оставлено звёзд")
 
