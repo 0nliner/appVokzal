@@ -3,10 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@date-io/date-fns": "^1.3.13",
     "@material-ui/core": "^4.11.4",
     "@material-ui/lab": "*",
-    "@material-ui/pickers": "^3.3.10",
     "cra-template": "1.1.2",
     "mapbox-gl": "^2.3.0",
     "react": "^17.0.2",
@@ -17,9 +15,7 @@
     "react-scripts": "4.0.3",
     "react-swipeable-views": "^0.14.0",
     "react-swipeable-views-utils": "^0.14.0",
-    "redux": "^4.1.0",
-    "reselect": "^4.0.0",
-    "reselector": "^0.21.0"
+    "redux": "^4.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

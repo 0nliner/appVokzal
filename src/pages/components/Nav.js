@@ -26,7 +26,6 @@ const useStyles = makeStyles((theme)=>({
             width: 'auto',
         },
         menuButton: {
-            background: "white",
             color: "rgba(62, 89, 130, 1)"
         },
         large: {
