@@ -2,10 +2,6 @@ from django.db import models
 from users.models import User
 
 
-class CarImages(models.Model):
-    img = models.URLField()
-
-
 class Car(models.Model):
     class Meta:
         verbose_name = "Машина"
@@ -28,4 +24,13 @@ class Car(models.Model):
 
     color = models.CharField(max_length=20,
                              verbose_name="цвет автомобиля")
+
+
+
+class CarImages(models.Model):
+    img = models.URLField()
+    car = models.ForeignKey(Car,
+                            related_name="car_images",
+                            on_delete=models.CASCADE,
+                            null=True)
 

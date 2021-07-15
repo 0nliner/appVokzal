@@ -1,3 +1,4 @@
+import datetime as datetime
 from django.db import models
 
 from cars.models import Car
@@ -14,8 +15,13 @@ class Trip(models.Model):
                                related_name="trips")
 
     car = models.ForeignKey(Car,
-                            on_delete = models.CASCADE,
+                            on_delete=models.CASCADE,
                             related_name="trips")
+
+    datetime = models.DateTimeField(
+        verbose_name="Дата и время поездки",
+        default=datetime.datetime(year=1995, month=1, day=1, hour=1, minute=0, second=0, microsecond=0)
+    )
 
     @property
     def arrive_from(self):
@@ -42,6 +48,11 @@ class Trip(models.Model):
         return sorted([(breakpoint.title, breakpoint.order_index) for breakpoint in self.breakpoints.all()],
                       key=lambda ordered_breakpoint: ordered_breakpoint[1])
 
+    @property
+    def is_completed(self):
+        # TODO: написать функцию проверки
+        return False
+
 
 class Breakpoint(models.Model):
     class Meta:
@@ -55,5 +66,21 @@ class Breakpoint(models.Model):
                              on_delete=models.CASCADE,
                              verbose_name="Поездка")
 
+    is_back_trip = models.BooleanField(default=False)
+
+    price = models.PositiveIntegerField(default=0)
+    msg = models.CharField(max_length=500,
+                           blank=True,
+                           null=True)
 
 
+class LockedPlace(models.Model):
+
+    class Meta:
+        verbose_name = "Место недоступное для бронирования"
+        verbose_name_plural = "Места недоступные для бронирования"
+
+    place_index = models.PositiveIntegerField()
+    trip = models.ForeignKey(Trip,
+                             on_delete=models.CASCADE,
+                             related_name="locked_places")
