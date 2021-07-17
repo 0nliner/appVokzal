@@ -14,6 +14,8 @@ import MenuIcon from "@material-ui/icons/Menu";
 import { Avatar, Typography } from '@material-ui/core';
 import FlagIcon from '@material-ui/icons/Flag';
 import Link from '@material-ui/core/Link'
+
+
 const useStyles = makeStyles((theme)=>({
         root: {
             display: 'flex',
@@ -110,11 +112,45 @@ export function Nav() {
                 </ListItem> */}
                 {['Профиль', 'Поездка', 'Все поездки', 'Бронирование', 'Найти поездку', 'Выбрать поездку', 'Карта', 'Чат'].map((text, index) => (
                     <ListItem button  component={Link} href={link(index)}>
-                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                        {/*<ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>*/}
                         <ListItemText primary={text} />
-                    </ListItem>
-                ))}
+                    </ListItem>))}
+
+
+                {/* todo: внизу нормальная менбшка + иконки к этому добру, раскомментить
+                        к релизу */}
+
+                {/*<ListItem button key={'present and bonuses'}>*/}
+                {/*    /!*<ListItemIcon></ListItemIcon>*!/*/}
+                {/*    <ListItemText primary={'подарок и бонусы'}/>*/}
+                {/*</ListItem>*/}
+
+                {/*<ListItem button key={'история'}>*/}
+                {/*    /!*<ListItemIcon></ListItemIcon>*!/*/}
+                {/*    <ListItemText primary={'история'}/>*/}
+                {/*</ListItem>*/}
+
+                {/*<ListItem button key={'помощь'}>*/}
+                {/*    /!*<ListItemIcon></ListItemIcon>*!/*/}
+                {/*    <ListItemText primary={'подарок и бонусы'}/>*/}
+                {/*</ListItem>*/}
+
+                {/*<ListItem button key={'настройки'}>*/}
+                {/*    /!*<ListItemIcon></ListItemIcon>*!/*/}
+                {/*    <ListItemText primary={'настройки'}/>*/}
+                {/*</ListItem>*/}
+
             </List>
+
+            {/*<Divider />*/}
+            {/*<List>*/}
+            {/*    {['All mail', 'Trash', 'Spam'].map((text, index) => (*/}
+            {/*        <ListItem button key={text}>*/}
+            {/*            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>*/}
+            {/*            <ListItemText primary={text} />*/}
+            {/*        </ListItem>*/}
+            {/*    ))}*/}
+            {/*</List>*/}
         </div>
         );
     }

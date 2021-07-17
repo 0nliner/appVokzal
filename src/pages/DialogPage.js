@@ -106,13 +106,6 @@ function SendMessage (props) {
                 <SendIcon/>
             </Fab>
 
-            {/*<Grid item>*/}
-            {/*    <Grid container justify={"center"} align={"center"}>*/}
-            {/*        <Button variant={"contained"} color={"primary"} xs={"sm"}>*/}
-            {/*            Отправить*/}
-            {/*        </Button>*/}
-            {/*    </Grid>*/}
-            {/*</Grid>*/}
         </Grid>
     );
 }

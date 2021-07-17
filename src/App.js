@@ -25,11 +25,13 @@ function App() {
             <Route path={"/trips"} component={TripsPage}/>
             <Route path={"/account"} component={AccountPage}/>
             <Route path={"/reservations"} component={ReservationsPage}/>
+
             {/* клиентская часть */}
             <Route path={"/findTrip"} component={FindTripPage}/>
             <Route path={"/observeTrip"} component={ObserveTrip}/>
             <Route path={"/map"} component={MapPage}/>
             <Route path={"/dialog"} component={DialogPage}/>
+            <Route path={"/path"} component={MapPage}/>
 
           </Switch>
 
