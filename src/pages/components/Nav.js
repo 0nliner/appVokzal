@@ -11,10 +11,16 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import {Link} from "@material-ui/core";
+import { Avatar, Typography } from '@material-ui/core';
+import FlagIcon from '@material-ui/icons/Flag';
+import Link from '@material-ui/core/Link'
 
 
 const useStyles = makeStyles((theme)=>({
+        root: {
+            display: 'flex',
+            justifyContent: 'center',
+        },
         list: {
             width: 250,
         },
@@ -22,8 +28,13 @@ const useStyles = makeStyles((theme)=>({
             width: 'auto',
         },
         menuButton: {
-            marginRight: theme.spacing(2),
+            background: "white",
+            color: "rgba(62, 89, 130, 1)"
         },
+        large: {
+            width: theme.spacing(7),
+            height: theme.spacing(7),
+        }
     })
 );
 
@@ -44,7 +55,30 @@ export function Nav() {
         setState({ ...state, [anchor]: open });
     };
 
-    const list = (anchor) => (
+    const list = (anchor) => {
+        const link = (param) => {
+            switch (param) {
+              case 0:
+                return "/account";
+              case 1:
+                return "/trip";
+              case 2:
+                return "/trips";
+              case 3:
+                return "/reservations";
+              case 4:
+                return "/findTrip";
+              case 5:
+                return "/observeTrip";
+              case 6:
+                return "/map";
+              case 7:
+                return "/dialog";
+              default:
+                return "/map";
+            }
+          }
+        return (
         <div
             className={clsx(classes.list, {
                 [classes.fullList]: anchor === 'top' || anchor === 'bottom',
@@ -56,41 +90,55 @@ export function Nav() {
 
             {/* TODO: как появятся иконки для навигации - подкючить их тут*/}
             <List>
-                {/*{['Код', 'подарок и бонусы', 'История', 'Помощь', 'Настройки'].map((text, index) => (*/}
+                <div className={classes.root}>
+                <Avatar alt="Avatar Image" src="../../images/avatar.png" className={classes.large} />
+                </div>
+                <Typography align="center" variant="h5">Elon Mask</Typography>
+                <Typography align="center">Timba20@yandex.ru</Typography>
+                <Typography align="center">+79320964396</Typography>
+                {/* {['Код', 'подарок и бонусы', 'История', 'Помощь', 'Настройки'].map((text, index) => (*/}
                 {/*    <ListItem button key={'Код'}>*/}
                 {/*         это типо для иконок навигации*/}
                         {/*<ListItemIcon></ListItemIcon>*/}
                         {/*<ListItemText primary={'Код'} />*/}
                     {/*</ListItem>*/}
-                {/*))}*/}
-                <Link to="/map">
-                    <ListItem button key={'Код'}>
-                        {/*<ListItemIcon></ListItemIcon>*/}
-                        <ListItemText primary={'Код'}>
-                            код
-                        </ListItemText>
-                    </ListItem>
-                </Link>
+                {/*))} */}
+            </List>
+            <Divider />
+            <List>
+                {/* <ListItem>
+                    <ListItemIcon> <FlagIcon /> </ListItemIcon>
+                    <ListItemText primary="Код"></ListItemText>
+                </ListItem> */}
+                {['Профиль', 'Поездка', 'Все поездки', 'Бронирование', 'Найти поездку', 'Выбрать поездку', 'Карта', 'Чат'].map((text, index) => (
+                    <ListItem button  component={Link} href={link(index)}>
+                        {/*<ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>*/}
+                        <ListItemText primary={text} />
+                    </ListItem>))}
 
-                <ListItem button key={'present and bonuses'}>
-                    {/*<ListItemIcon></ListItemIcon>*/}
-                    <ListItemText primary={'подарок и бонусы'}/>
-                </ListItem>
 
-                <ListItem button key={'история'}>
-                    {/*<ListItemIcon></ListItemIcon>*/}
-                    <ListItemText primary={'история'}/>
-                </ListItem>
+                {/* todo: внизу нормальная менбшка + иконки к этому добру, раскомментить
+                        к релизу */}
 
-                <ListItem button key={'помощь'}>
-                    {/*<ListItemIcon></ListItemIcon>*/}
-                    <ListItemText primary={'подарок и бонусы'}/>
-                </ListItem>
+                {/*<ListItem button key={'present and bonuses'}>*/}
+                {/*    /!*<ListItemIcon></ListItemIcon>*!/*/}
+                {/*    <ListItemText primary={'подарок и бонусы'}/>*/}
+                {/*</ListItem>*/}
 
-                <ListItem button key={'настройки'}>
-                    {/*<ListItemIcon></ListItemIcon>*/}
-                    <ListItemText primary={'настройки'}/>
-                </ListItem>
+                {/*<ListItem button key={'история'}>*/}
+                {/*    /!*<ListItemIcon></ListItemIcon>*!/*/}
+                {/*    <ListItemText primary={'история'}/>*/}
+                {/*</ListItem>*/}
+
+                {/*<ListItem button key={'помощь'}>*/}
+                {/*    /!*<ListItemIcon></ListItemIcon>*!/*/}
+                {/*    <ListItemText primary={'подарок и бонусы'}/>*/}
+                {/*</ListItem>*/}
+
+                {/*<ListItem button key={'настройки'}>*/}
+                {/*    /!*<ListItemIcon></ListItemIcon>*!/*/}
+                {/*    <ListItemText primary={'настройки'}/>*/}
+                {/*</ListItem>*/}
 
             </List>
 
@@ -104,13 +152,14 @@ export function Nav() {
             {/*    ))}*/}
             {/*</List>*/}
         </div>
-    );
+        );
+    }
 
     return (
         <React.Fragment key={"left"}>
             <IconButton edge="start"
                         className={classes.menuButton}
-                        color="inherit"
+                        color="rgba(62, 89, 130, 1)"
                         aria-label="menu"
                         onClick={toggleDrawer("left", true)}>
                 <MenuIcon />

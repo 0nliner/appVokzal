@@ -1,11 +1,13 @@
 import React from "react";
-
 import {
     Accordion, AccordionDetails,
     AccordionSummary,
     Avatar,
     Box,
+    Button,
     Card,
+    CardActionArea,
+    CardContent,
     Container,
     createStyles,
     Grid,
@@ -14,395 +16,451 @@ import {
     Typography, useTheme
 } from "@material-ui/core";
 import {Header} from "../components/Header";
-import {Timeline, TimelineConnector, TimelineContent, TimelineDot, TimelineItem, TimelineSeparator} from "@material-ui/lab";
-
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import IconButton from '@material-ui/core/IconButton';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
 // icons
-import CheapSVG from "../../icons/Component 69.svg";
-import RestingSvg from "../../icons/resting.svg";
-import PeopleCarrier from "../../icons/people-carrier.svg";
-import BusSVG from "../../icons/bus.svg";
-import DeliverySVG from "../../icons/delivery.svg";
-import BoxSVG from "../../icons/box.svg";
-import SubSVG from "../../icons/substract.svg";
-import addSvg from "../../icons/add.svg";
-import starSVG from "../../icons/star.svg";
+import SwapVertIcon from '@material-ui/icons/SwapVert';
+import poput from '../../icons/poput.svg';
+import econom from '../../icons/econom.svg';
+import comfort from '../../icons/comfort.svg';
+import mini from '../../icons/miniven.svg';
+import bus from '../../icons/bus.svg';
+import gruz from '../../icons/gruz.svg';
+import delivery from '../../icons/delivery 2.svg';
+import special from '../../icons/special.svg';
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
 // images
 import AvatarDemo from "../../images/avatar.png";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import {KeyboardArrowLeft, KeyboardArrowRight} from "@material-ui/icons";
-import Button from "@material-ui/core/Button";
-// import {} from "@material-ui/icons";
+import { createStore } from "redux";
+import { root_reducer } from "../../redux/findTrips/reducers";
+import { seatsSelector, searchSelector } from "../../redux/findTrips/selectors";
+import { useSelector } from "react-redux";
+import { Provider } from "react-redux";
+import {add_count, remove_count, add_length, add_weight, add_width, remove_length, remove_weight, remove_width, change_city, change_city_from, change_city_to} from '../../redux/findTrips/actions';
+const store = createStore(root_reducer);
 
-
-
-
-let useFromToStyles = makeStyles(theme => ({
-    fromToInput: {
-        width: "calc(100% - 20px)",
+// --------------------- Search component -------------
+const useSearchStyles = makeStyles( theme => ({
+    root: {
+        marginTop: 10
+    },
+    input: {
+        width: "calc(100% - 30px)",
         height: "40px",
-        backgroundColor: "#EAEAEA",
-        marginBottom: 10,
-        color: "#6F6F6F",
+        borderRadius: "21px",
+        background: "#EAEAEA",
+        fontSize: "15px",
+        paddingLeft: 30,
         border: "none",
-        borderRadius: 100,
-        paddingLeft: 20
-    }
-}));
+        marginTop: 10,
+        outline: "none",
+        "&:active": {
+            outline: "none"
+        }
 
-
-let useTripSelectionStyles = makeStyles(theme => ({
-    tripTypeButton: {
-        width: 70,
+    },
+    swap: {
+        width: 40,
         height: 40,
+        position: "absolute",
+        top: 103,
+        right: 50,
         display: "flex",
         justifyContent: "center",
-        flexDirection: "column",
+        alignItems: "center",
+        color: "black",
+        borderRadius: "50%",
+        border: "none",
+        background: "#FFFFFF",
+        boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)",
+        "&:hover": {
+            border: "none",
+            background: "white"
+        }
     }
 }));
-
-
-let useCardStyles = makeStyles(theme => ({
-    avatar: {
-        marginLeft: "auto",
-        marginRight: "auto",
-    },
-
-    aboutCar: {
-        backgroundColor: "#F7F7F9",
-        color: "#434343",
-        width: "100%",
-        padding: "5px 7px",
-        marginBottom: 20
-
-    },
-
-    aboutCarSecondaryText: {
-        color: "#434343"
-    },
-
-    //    image slider classes
-    root: {
-        maxWidth: 400,
-        flexGrow: 1,
-    },
-
-    header: {
-        display: 'flex',
-        alignItems: 'center',
-        height: 50,
-        paddingLeft: theme.spacing(4),
-        backgroundColor: theme.palette.background.default,
-    },
-
-    img: {
-        height: 255,
-        maxWidth: 400,
-        overflow: 'hidden',
-        display: 'block',
-        width: '100%',
-    },
-
-}));
-
-
-function TripTypeButton ({src, title}) {
-    let classes = useTripSelectionStyles();
+const Search = () => {
+    const classes = useSearchStyles();
+    const city = useSelector(searchSelector);
+    const change_city_btn = () => {
+      store.dispatch(change_city())
+      // console.log(city)
+    };
 
     return (
-        <Grid item xs={3} style={{margin: 5}}>
-            <Box className={classes.tripTypeButton}>
-                <img src={src}/>
-            </Box>
-            <Typography variant={"caption"}>
-                {title}
-            </Typography>
-        </Grid>
-    );
-}
-
-function SelectTripType (props) {
-    return (
-        <Container xs={"sm"}>
-            <Grid container>
-                <Grid item xs={12}>
-                    <Grid container direction={"row"} justify={"center"}>
-                        <TripTypeButton src={CheapSVG} title={"Эконом"}/>
-                        <TripTypeButton src={RestingSvg} title={"Комфорт"}/>
-                        <TripTypeButton src={PeopleCarrier} title={"Минимвен"}/>
-                    </Grid>
-                </Grid>
-
-                <Grid item xs={12}>
-                    <Grid container direction={"row"} justify={"center"}>
-                        <TripTypeButton src={BusSVG} title={"Автобус"}/>
-                        <TripTypeButton src={DeliverySVG} title={"Грузовые"}/>
-                        <TripTypeButton src={BoxSVG} title={"Посылки"}/>
-                    </Grid>
-                </Grid>
-            </Grid>
+        <Container className={classes.root}>
+            <input onChange={e => store.dispatch(change_city_from(e.target.value))} value={city.from} placeholder="Откуда" type="text"  className={classes.input} />
+            <input onChange={e => store.dispatch(change_city_to(e.target.value))} value={city.to} placeholder="Куда" type="text"  className={classes.input} />
+            <IconButton onClick={change_city_btn} className={classes.swap}><SwapVertIcon /></IconButton>
         </Container>
     );
 }
 
-function FromTo (props) {
-    let classes = useFromToStyles();
 
+// --------------------- Service component ----------------
+function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+  
     return (
-        <Grid container direction={"column"}>
-            <input placeholder={"откуда"} className={classes.fromToInput}/>
-            <input placeholder={"куда"} className={classes.fromToInput}/>
-        </Grid>
+      <div
+        role="tabpanel"
+        style={{display: "flex", justifyContent: "center", marginTop: 10}}
+        hidden={value !== index}
+        id={`wrapped-tabpanel-${index}`}
+        aria-labelledby={`wrapped-tab-${index}`}
+        {...other}
+      >
+        {value === index && (
+          <Box style={{display: "flex", justifyContent: "space-between", padding: 5, flexWrap: "wrap"}}>
+            {children}
+          </Box>
+        )}
+      </div>
     );
-}
-
-function PlacesAndDate (props) {
-    return (
-        <Box style={{marginTop: 20}}>
-            <Container>
-                    <Grid container direction={"column"}>
-                        <Typography align="center">
-                            кол-во мест: 2
-                        </Typography>
-
-                        <Grid container justify={"center"}>
-                            {/* кнопка минус */}
-                            <div style={{
-                                display: "grid",
-                                placeContent: "center",
-                                // boxShadow: "0 0 7px 7px rgba(0, 0, 0, 0.1)",
-                                border: "1px solid rgba(0, 0, 0, 0.1)",
-                                borderRadius: 100,
-                                height: 25,
-                                width: 25,
-                                marginRight: 10
-                            }}>
-                                <img src={SubSVG}/>
-                            </div>
-
-                            {/* кнопка плюс */}
-                            <div style={{
-                                display: "grid",
-                                placeContent: "center",
-                                // boxShadow: "0 0 7px 7px rgba(0, 0, 0, 0.1)",
-                                border: "1px solid rgba(0, 0, 0, 0.1)",
-                                borderRadius: 100,
-                                height: 25,
-                                width: 25
-                            }}>
-                                <img src={addSvg}/>
-                            </div>
-                        </Grid>
-                    </Grid>
-
-                <TextField type={"datetime-local"}/>
-
-            </Container>
-
-        </Box>
-    );
-}
-
-// TODO: удалить тестовые данные
-const tutorialSteps = [
-    {
-        label: 'San Francisco – Oakland Bay Bridge, United States',
-        imgPath:
-            'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
-    },
-    {
-        label: 'Bird',
-        imgPath:
-            'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
-    },
-    {
-        label: 'Bali, Indonesia',
-        imgPath:
-            'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80',
-    },
-    {
-        label: 'NeONBRAND Digital Marketing, Las Vegas, United States',
-        imgPath:
-            'https://images.unsplash.com/photo-1518732714860-b62714ce0c59?auto=format&fit=crop&w=400&h=250&q=60',
-    },
-    {
-        label: 'Goč, Serbia',
-        imgPath:
-            'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
-    },
-];
-
-
-function TripCard (props) {
-    let classes = useCardStyles();
-    // для скроллера фотографий
-    const theme = useTheme();
-    const [activeStep, setActiveStep] = React.useState(0);
-    const maxSteps = tutorialSteps.length;
-
-    const handleNext = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  }
+  function a11yProps(index) {
+    return {
+      id: `wrapped-tab-${index}`,
+      'aria-controls': `wrapped-tabpanel-${index}`,
     };
+  }
+  
 
-    const handleBack = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    };
+const useServiceStyles = makeStyles( theme => ({
+    root: {
+        display: "flex",
+        marginTop: 50,
+        width: "100%",
+        paddingBottom: 5,
+        
+    },
+    item: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+        fontSize: "9px",
+        textTransform: "capitalize"
+    },
+    seats: {
+      width: "50%",
+      display: "flex",
+      justifyContent: "space-between",
+      flexDirection: "column",
+      padding: 0,
+      marginLeft: -20
+      
+    },
+    date: {
+      width: "50%",
+      display: "flex",
+      flexDirection: "column",
+      padding: 0,
+      margin: 0
+    },
+    containerDelivery: {
+      display: "flex",
+      justifyContent: "space-between",
+      width: "100%",
+      paddingBottom: 20
+    },
+    itemDelivery: {
+      display: "flex",
+      justifyContent: "center",
+      flexDirection: "column",
+      
+    },
 
+}))
 
+const Service = () => {
+    const classes = useServiceStyles();
+    const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+  const [selectedDate, setSelectedDate] = React.useState(new Date('2021-07-30T21:11:54'));
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
+  const seats = useSelector(seatsSelector);
+  // console.log(seats)
+  const decrement_count = () => {
+    store.dispatch(remove_count());
+  }
+
+  const decrement_width = () => {
+    store.dispatch(remove_width());
+  }
+
+  const decrement_length = () => {
+    store.dispatch(remove_length());
+  }
+
+  const decrement_weight = () => {
+    store.dispatch(remove_weight());
+  }
+
+  const increment_count = () => {
+    store.dispatch(add_count());
+  }
+
+  const increment_width = () => {
+    store.dispatch(add_width());
+  }
+
+  const increment_length = () => {
+    store.dispatch(add_length());
+  }
+
+  const increment_weight = () => {
+    store.dispatch(add_weight());
+  }
+  
+  
     return (
-        <Card style={{marginTop: "40px"}}>
-            <Container>
-
-                {/* top bar */}
-
-                <Avatar src={AvatarDemo}
-                        style={{
-                            marginBottom: 20
-                        }}
+      
+        <div>
+        <Tabs  variant="scrollable" value={value} onChange={handleChange} indicatorColor="primary" textColor="primary" className={classes.root}>
+            
+            <Tab className={classes.item} value="1" {...a11yProps('1')} label="Попутчик" icon={<img src={poput} />} />
+            
+            <Tab className={classes.item} value="2" {...a11yProps('2')} label="Эконом" icon={<img src={econom} />} />
+            <Tab className={classes.item} value="3" {...a11yProps('3')} label="Комфорт" icon={<img src={comfort} />} />
+            <Tab className={classes.item} value="4" {...a11yProps('4')} label="Минивэн" icon={<img src={mini} />} />
+            <Tab className={classes.item} value="5" {...a11yProps('5')} label="Автобус" icon={<img src={bus} />} />
+            <Tab className={classes.item} value="6" {...a11yProps('6')} label="Грузовые" icon={<img src={gruz} />} />
+            <Tab className={classes.item} value="7" {...a11yProps('7')} label="Посылки" icon={<img src={delivery} />} />
+            <Tab className={classes.item} value="8" {...a11yProps('8')} label="Спецтехника" icon={<img src={special} />} />
+        </Tabs>
+        {
+          ["1","2","3","4","5","6","8"].map(item => {
+            return (
+              
+              <TabPanel value={value} index={item}>
+                <div className={classes.seats}>
+                  <Typography variant="body1"> Кол-во мест: {seats.count}</Typography>
+                  <div>
+                    <IconButton onClick={decrement_count} style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA"}} aria-label="remove">
+                      <RemoveIcon style={{fontSize: "15px"}} />
+                    </IconButton>
+                    <IconButton onClick={increment_count} style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA", marginLeft: 6}} aria-label="add">
+                    <AddIcon style={{fontSize: "15px"}}/>
+                    </IconButton>
+                  </div>
+                </div>
+                <div className={classes.date}>
+                  <MuiPickersUtilsProvider  utils={DateFnsUtils}>
+                  <KeyboardDatePicker
+                  disableToolbar
+                  variant="inline"
+                  format="dd/MM/yyyy"
+                  
+                  id="date-picker-inline"
+                  label="Дата поездки "
+                  value={selectedDate}
+                  onChange={handleDateChange}
+                  KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                  }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
                 />
-
-                <Grid container
-                      style={{
-                          position: "relative",
-                          marginBottom: 20
-                      }}>
-                    <Typography align="left">
-                        Elon Mask - 49 лет
-                    </Typography>
-
-                    <Box style={{position: "absolute", right: 0}}>
-                        2,9
-                        <img src={starSVG} style={{position: "relative", top: "3px", height: "15px"}}/>
-                    </Box>
-                </Grid>
-
-
-                <Accordion>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon/>}>
-                        Маршрут
-                    </AccordionSummary>
-
-                    <AccordionDetails>
-
-
-                        <Timeline align="right">
-                            <TimelineItem>
-                                <TimelineSeparator>
-                                    <TimelineDot />
-                                    <TimelineConnector />
-                                </TimelineSeparator>
-                                <TimelineContent>Москва</TimelineContent>
-                            </TimelineItem>
-                            <TimelineItem>
-                                <TimelineSeparator>
-                                    <TimelineDot />
-                                    <TimelineConnector />
-                                </TimelineSeparator>
-                                <TimelineContent>Сочи</TimelineContent>
-                            </TimelineItem>
-                            <TimelineItem>
-                                <TimelineSeparator>
-                                    <TimelineDot />
-                                    <TimelineConnector />
-                                </TimelineSeparator>
-                                <TimelineContent>Владив<br/>осток</TimelineContent>
-                            </TimelineItem>
-                            <TimelineItem>
-                                <TimelineSeparator>
-                                    <TimelineDot />
-                                </TimelineSeparator>
-                                <TimelineContent>Стокго<br/>льм</TimelineContent>
-                            </TimelineItem>
-                        </Timeline>
-                        {/*  маршрут  */}
-
-                    </AccordionDetails>
-                </Accordion>
-
-
-                <Accordion style={{marginBottom: 30}}>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon/>}>
-                        Авто
-                    </AccordionSummary>
-
-                    <AccordionDetails>
-
-                        <Container>
-                            {/*  про автомобиль  */}
-                            <Grid container class={classes.aboutCar}>
-                                <Typography align="left" className={classes.aboutCarSecondaryText}>
-                                    Модель
-                                </Typography>
-
-                                <Typography align="left" className={classes.aboutCarSecondaryText}>
-                                    Комфорт
-                                </Typography>
-
-                                <Typography align="left" className={classes.aboutCarSecondaryText}>
-                                    Цвет
-                                </Typography>
-                            </Grid>
-
-                            {/*  тут фотки автомобиля  */}
-                            <div className={classes.root}>
-                                <Paper square elevation={0} className={classes.header}>
-                                    <Typography>{tutorialSteps[activeStep].label}</Typography>
-                                </Paper>
-                                <img
-                                    className={classes.img}
-                                    src={tutorialSteps[activeStep].imgPath}
-                                    alt={tutorialSteps[activeStep].label}
-                                />
-                                <MobileStepper
-                                    steps={maxSteps}
-                                    position="static"
-                                    variant="text"
-                                    activeStep={activeStep}
-                                    nextButton={
-                                        <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}>
-                                            Next
-                                            {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
-                                        </Button>
-                                    }
-                                    backButton={
-                                        <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-                                            {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-                                            Back
-                                        </Button>
-                                    }
-                                />
-                            </div>
-
-                        </Container>
-
-                    </AccordionDetails>
-                </Accordion>
-
-            </Container>
-        </Card>
-    );
+                </MuiPickersUtilsProvider>
+                  </div>
+                </TabPanel>  
+            )
+          })
+        }
+        <TabPanel value={value} index="7">
+          <div className={classes.containerDelivery}>
+            <div className={classes.itemDelivery}>
+              <Typography variant="caption">Ширина(см)</Typography>
+              <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+                <IconButton onClick={decrement_width} style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA", width: 20, height: 20}} aria-label="remove">
+                  <RemoveIcon style={{fontSize: "12px"}} />
+                </IconButton>
+                <Typography style={{marginRight: 5, marginLeft: 5}} variant="body2">{seats.width}</Typography>
+                <IconButton onClick={increment_width} style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA", width: 20, height: 20}} aria-label="add">
+                  <AddIcon style={{fontSize: "12px"}}/>
+                </IconButton>
+              </div>
+              </div>
+              <div className={classes.itemDelivery}>
+              <Typography variant="caption">Длина(см)</Typography>
+              <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+                <IconButton onClick={decrement_length} style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA", width: 20, height: 20}} aria-label="remove">
+                  <RemoveIcon style={{fontSize: "12px"}} />
+                </IconButton>
+                <Typography style={{marginRight: 5, marginLeft: 5}} variant="body2">{seats.length}</Typography>
+                <IconButton onClick={increment_length} style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA", width: 20, height: 20}} aria-label="add">
+                  <AddIcon style={{fontSize: "12px"}}/>
+                </IconButton>
+              </div>
+              </div>
+              <div className={classes.itemDelivery}>
+              <Typography variant="caption">Вес(кг)</Typography>
+              <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+                <IconButton onClick={decrement_weight} style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA", width: 20, height: 20}} aria-label="remove">
+                  <RemoveIcon style={{fontSize: "12px"}} />
+                </IconButton>
+                <Typography style={{marginRight: 5, marginLeft: 5}} variant="body2">{seats.weight}</Typography>
+                <IconButton onClick={increment_weight} style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA", width: 20, height: 20}} aria-label="add">
+                  <AddIcon style={{fontSize: "12px"}}/>
+                </IconButton>
+              </div>
+            </div>
+          </div>
+        <div className={classes.seats}>
+                  <Typography variant="body1"> Кол-во мест: {seats.count}</Typography>
+                  <div>
+                    <IconButton onClick={decrement_count} style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA"}} aria-label="remove">
+                      <RemoveIcon style={{fontSize: "15px"}} />
+                    </IconButton>
+                    <IconButton onClick={increment_count} style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA", marginLeft: 6}} aria-label="add">
+                    <AddIcon style={{fontSize: "15px"}}/>
+                    </IconButton>
+                  </div>
+                </div>
+                <div className={classes.date}>
+                  <MuiPickersUtilsProvider  utils={DateFnsUtils}>
+                  <KeyboardDatePicker
+                  disableToolbar
+                  variant="inline"
+                  format="dd/MM/yyyy"
+                  
+                  id="date-picker-inline"
+                  label="Дата поездки "
+                  value={selectedDate}
+                  onChange={handleDateChange}
+                  KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                  }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+                </MuiPickersUtilsProvider>
+                  </div>
+        </TabPanel>
+        </div>
+     
+    )
 }
 
-function TripCards (props) {
-    let cards = [1, 2, 3, 4]
-    return (
-        <Box>
-            {cards.map(card => <TripCard {...card}/>)}
-        </Box>
-    );
+// -------------------- Drivers --------------------
+
+const useDriversStyles = makeStyles( theme => ({
+  root: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    padding: 20
+  },
+  information: {
+    display: "flex",
+    height: "100%",
+    flexDirection: "column",
+    alignItems: "center",
+    color: "#757575",
+  },
+  profile: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    color: "#757575"
+  },
+  auto: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    color: "#757575"
+  }
+}))
+
+const Drivers = (props) => {
+  const classes = useDriversStyles();
+
+  const data = [
+    {
+      name: "Илон",
+      age: 49,
+      auto: "Nissan Silvia",
+      time: "16:00",
+      price: 400
+    },
+    {
+      name: "Илон",
+      age: 49,
+      auto: "Nissan Silvia",
+      time: "16:00",
+      price: 400
+    },
+    {
+      name: "Илон",
+      age: 49,
+      auto: "Nissan Silvia",
+      time: "16:00",
+      price: 400
+    }
+  ]
+  return (
+    <Container>
+      {
+        data.map(driver => {
+          return (
+            <Card style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", borderRadius: "11px", marginBottom: 15}}>
+              <CardActionArea>
+                <CardContent className={classes.root}>
+                  <div className={classes.information}>
+                    <Typography style={{width: "100%"}} align="left" variant="body2">{driver.time}</Typography>
+                    <Typography style={{width: "100%"}} align="left" variant="body2">{driver.price} руб</Typography>
+                  </div>
+                  <div className={classes.profile}>
+                    <Avatar src={AvatarDemo} />
+                    <Typography variant="caption">{driver.name} - {driver.age} лет</Typography>
+                  </div>
+                  <div className={classes.auto}>
+                    <Avatar  src={AvatarDemo} />
+                    <Typography variant="caption">{driver.auto}</Typography>
+                  </div>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          )
+        })
+      }
+      
+    </Container>
+  )
 }
 
-export function FindTripPage (props) {
+export const FindTripPage = (props) => {
     return (
+      <Provider store={store}>
             <Box>
                 <Header/>
-                <Container style={{marginTop: "20px", marginBottom: "20px"}}>
-                    <FromTo/>
-                    <SelectTripType/>
-                    <PlacesAndDate/>
-                    <TripCards/>
+                <Container>
+                    <Search />
+                    <Service />
+                    <Drivers />
                 </Container>
             </Box>
+      </Provider>
         );
 }
