@@ -1,7 +1,6 @@
 import {Box, Grid, makeStyles} from "@material-ui/core";
 import {Header} from "../components/Header";
 import { Nav } from '../components/Nav';
-
 import mapboxgl from 'mapbox-gl';
 import {useEffect, useRef, useState} from "react"; // eslint-disable-line import/no-webpack-loader-syntax
 
@@ -121,12 +120,20 @@ export function MapPage (props) {
             </Grid>
 
             {/* map */}
+{/*<<<<<<< HEAD*/}
+{/*/!*=======*!/*/}
+{/*/!*            <div className={classes.nav}>*!/*/}
+{/*/!*                <Nav />*!/*/}
+{/*/!*            </div>*!/*/}
+{/*/!*>>>>>>> 39b450019d14f1b6cf5937608ced8185b4b746c9*!/*/}
+{/*            <div ref={mapContainer} className={classes.map}/>*/}
 {/*=======*/}
-{/*            <div className={classes.nav}>*/}
-{/*                <Nav />*/}
-{/*            </div>*/}
-{/*>>>>>>> 39b450019d14f1b6cf5937608ced8185b4b746c9*/}
-            <div ref={mapContainer} className={classes.map}/>
+            <div className={classes.nav}>
+                <Nav />
+                
+            </div>
+            <div ref={mapContainer} className={classes.map}  />
+{/*>>>>>>> 2d9903a91c3f88c2c373df0b24de05e48055b6b8*/}
         </Box>
     );
 }

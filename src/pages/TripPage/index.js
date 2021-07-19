@@ -184,6 +184,8 @@ const aboutUseStyles = makeStyles(theme => ({
   },
   buttons: {
     textTransform: "capitalize",
+    textAlign: "left",
+    justifyContent: "flex-start"
   }
 }))
 
@@ -234,7 +236,7 @@ function About (props) {
           </Accordion>
             <div className={classes.links}>
               {/* Оставить по центру? Мне кажется так лучше.  */}
-              <Button align="left" className={classes.buttons} variant="text">Оплата</Button>
+              <Button className={classes.buttons} variant="text">Оплата</Button>
               <Button className={classes.buttons} variant="text">Полученные отзывы</Button>
               <Button className={classes.buttons} variant="text">Оставленные отзывы</Button>
               <Button className={classes.buttons} variant="text">Пароль</Button>

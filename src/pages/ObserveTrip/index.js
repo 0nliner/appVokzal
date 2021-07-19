@@ -11,11 +11,13 @@ import {
     Grid, makeStyles, MobileStepper, Paper,
     Typography,
     useTheme,
-    Button, Checkbox
+    Button, Checkbox, CardActionArea, CardContent, Tabs, Tab
 } from "@material-ui/core";
-
+import StarIcon from '@material-ui/icons/Star';
 import React from "react";
-
+import avatar from '../../images/avatar.png';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import {
     Timeline,
     TimelineConnector,
@@ -25,417 +27,369 @@ import {
     TimelineSeparator
 } from "@material-ui/lab";
 
-import {KeyboardArrowLeft, KeyboardArrowRight} from "@material-ui/icons";
-import starSVG from "../../icons/star.svg";
-import MoneySVG from "../../icons/money.svg";
-import CardSVG from "../../icons/card.svg";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import InfoIcon from '@material-ui/icons/Info';
-
-import AvatarDemo from "../../images/avatar.png";
-
-
-
-
-
-let useCardStyles = makeStyles(theme => ({
-    avatar: {
-        marginLeft: "auto",
-        marginRight: "auto",
-    },
-
-    aboutCar: {
-        backgroundColor: "#F7F7F9",
-        color: "#434343",
-        width: "100%",
-        padding: "5px 7px",
-        marginBottom: 20
-
-    },
-
-    aboutCarSecondaryText: {
-        color: "#434343"
-    },
-
-    //    image slider classes
+import autoPicture from '../../images/auto.png';
+import autoicon from '../../icons/MyCar 1.svg';
+import cardPay from '../../icons/card.svg';
+import nalPay from '../../icons/money.svg';
+import baby from '../../icons/baby.svg';
+import smoke from '../../icons/smoke.svg';
+import dog from '../../icons/dog.svg';
+import song from '../../icons/song.svg';
+import pocket from '../../icons/pocket.svg';
+const aboutUseStyles = makeStyles(theme => ({
     root: {
-        maxWidth: 400,
-        flexGrow: 1,
+
     },
-
-    header: {
-        display: 'flex',
-        alignItems: 'center',
-        height: 50,
-        paddingLeft: theme.spacing(4),
-        backgroundColor: theme.palette.background.default,
+    containerAbout: {
+      display: "flex",
+      justifyContent: "space-between",
+      padding: 5,
+      marginTop: 20
     },
-
-    img: {
-        height: 255,
-        maxWidth: 400,
-        overflow: 'hidden',
-        display: 'block',
-        width: '100%',
+    name: {
+      display: "flex",
+      width: "100%",
+      paddingLeft: "15%",
+      flexDirection: "column"
     },
-}));
-
-
-let useCommentClasses = makeStyles(theme => ({
-    commentRoot: {
-        backgroundColor: "#F7F7F9",
-        padding: "5px",
-        position: "relative",
-        width: "100%",
-        marginBottom: 10
+    avatar: {
+      height: 70,
+      width: 70
+    },
+    username: {
+      display: "flex",
+      flexDirection: "row",
+      height: 20,
+      alignItems: "center",
+      justifyContent: "space-between",
+      width: "100%",
+    },
+    way: {
+      display: "flex",
+      padding: 0,
+      
+    },
+    item: {
+      padding: 0,
+      margin: 0,
+      "&::before": {
+        display: "none"
+      }
+    },
+    price: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-between",
+      margin: 0,
+      padding: 0,
+      marginTop: -40
     }
-}));
 
-
-
-// TODO: удалить тестовые данные
-const tutorialSteps = [
-    {
-        label: 'San Francisco – Oakland Bay Bridge, United States',
-        imgPath:
-            'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
-    },
-    {
-        label: 'Bird',
-        imgPath:
-            'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
-    },
-    {
-        label: 'Bali, Indonesia',
-        imgPath:
-            'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80',
-    },
-    {
-        label: 'NeONBRAND Digital Marketing, Las Vegas, United States',
-        imgPath:
-            'https://images.unsplash.com/photo-1518732714860-b62714ce0c59?auto=format&fit=crop&w=400&h=250&q=60',
-    },
-    {
-        label: 'Goč, Serbia',
-        imgPath:
-            'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
-    },
-];
-
-let useDriverMessageStyles = makeStyles(theme => ({
-    textStyle: {
-        color: "#1358a0"
-    }
-}));
-
-let useBillingStyles = makeStyles(theme => ({
-    billingMethod: {
-
-    }
 }))
 
-function Comment (props) {
-    let classes = useCommentClasses();
-
+const About = () => {
+    const classes = aboutUseStyles();
     return (
-        <Box className={classes.commentRoot}>
-            <Grid container justify="space-between">
-                {/*<Grid item xs={8}>*/}
-                    <Typography>
-                        Гоша Григорий
-                    </Typography>
-                {/*</Grid>*/}
-
-                <Grid item>
-                    {/*<Box style={{position: "absolute", right: 0}}>*/}
-
-                    2,9
-                    <img src={starSVG} style={{position: "relative", top: "3px", height: "15px"}}/>
-                    {/*</Box>*/}
-                </Grid>
-
-            </Grid>
-
-            <Grid container style={{paddingLeft: "20px", paddingRight: "20px"}}>
-                <Typography align="left" variant="caption">
-                    тестовый текст тестовый текст тестовый текст тестовый текст тестовый текст тестовый текст
-                    тестовый текст тестовый текст тестовый текст тестовый текст тестовый текст тестовый текст
-                    тестовый текст тестовый текст
-                </Typography>
-
-            </Grid>
-        </Box>
+        <Container className={classes.root}>
+            <Container className={classes.containerAbout}>
+                <Avatar className={classes.avatar} src={avatar}></Avatar>
+                  <div className={classes.name}>
+                    <div className={classes.username}>
+                      <Typography style={{fontSize: "13px"}} variant="body2">Elon Musk</Typography>
+                      <Typography style={{fontSize: "9px"}} variant="caption">49 лет</Typography>
+                      <div style={{display: "flex", alignItems: "center"}}>
+                        <Typography style={{fontSize: "10px"}}variant="caption">2,9</Typography>
+                        <StarIcon style={{color: "#FFA011", fontSize: "12px"}} />
+                      </div>
+                    </div>
+                    <div className={classes.way}>
+            <Timeline style={{marginTop: 10, padding: 0}}>
+              <TimelineItem className={classes.item}>
+                <TimelineSeparator>
+                  <TimelineDot />
+                  <TimelineConnector />
+                </TimelineSeparator>
+                <TimelineContent style={{textAlign: "left", paddingLeft: 15, fontSize: "11px"}}>Казань</TimelineContent>
+              </TimelineItem >
+              <TimelineItem className={classes.item}>
+                  <TimelineDot />
+                <TimelineContent style={{textAlign: "left", paddingLeft: 15, fontSize: "11px"}}>Сочи</TimelineContent>
+              </TimelineItem>
+              </Timeline>
+                    </div>
+                  </div>
+                  
+            </Container>
+           <Container className={classes.price}>
+             <Typography style={{fontSize: "9px"}}> Цена за место: {500} руб</Typography>
+             <Typography style={{fontSize: "9px"}}> Свободных мест: {3}</Typography>
+           </Container>
+        </Container>
     )
 }
 
-function DriverMessage (props) {
-    let classes = useDriverMessageStyles();
 
-    return (
-        <Grid container
-              // classes={}
-              direction={"column"}
-              style={{
-                backgroundColor: "#e8f4fd",
-                borderRadius: "5px",
-                padding: "10px",
-                position: "relative",
-                marginBottom: 30
-              }}>
-            <Grid container style={{marginBottom: 15}}>
-                <InfoIcon style={{color: "#1358a0", marginRight: 10}}/>
-                <Typography align={"left"} className={classes.textStyle}>
-                    сообщение от водителя
-                </Typography>
-            </Grid >
+const autoUseStyles = makeStyles(theme => ({
+  root: {
+    marginTop: 20,
+  },
+  auto: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    background: "#F7F7F9",
+    paddingLeft: 15,
+    paddingRight: 15,
+    height: "38px",
+    marginTop: 5
+  },
+  item: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    textAlign: "left",
+    padding: 0
+  },
+  seats: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingTop: 15
+  },
+  image: {
+    borderRadius: "3px",
+    filter: "drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.25))",
+    width: "50%",
+    height: "25%"
+  }
+}))
 
-            <Typography align={"left"} variant={"caption"} className={classes.textStyle}>
-                Очень важное сообщение от водителя - остановок на туалет не будет, берите памперсы !
-            </Typography>
-        </Grid>
-    );
+const Auto = () => {
+  const classes = autoUseStyles();
+
+  return (
+    <Container className={classes.root}>
+      <Typography align="left" variant="body2">Автомобиль:</Typography>
+      <div className={classes.auto}>
+        <div className={classes.item}>
+          <Typography style={{fontSize: "8px"}}>Модель</Typography>
+          <Typography style={{fontSize: "6px"}}>{"Tesla model x"}</Typography>
+        </div>
+        <div className={classes.item}>
+          <Typography style={{fontSize: "8px"}}>Класс</Typography>
+          <Typography style={{fontSize: "6px"}}>{"Комфорт"}</Typography>
+        </div>
+        <div className={classes.item}>
+          <Typography style={{fontSize: "8px"}}>Цвет</Typography>
+          <Typography style={{fontSize: "6px"}}>{"Белый"}</Typography>
+        </div>
+      </div>
+      <div className={classes.seats}>
+        <img className={classes.image}  src={autoPicture}></img>
+        <div style={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
+          <Card style={{borderRadius: "14px", boxShadow: "0px 1px 4px rgba(0, 0, 0, 0.25)", maxHeight: "77px"}}>
+            <CardActionArea>
+              <CardContent style={{padding: 10}}>
+                <img  src={autoicon}/>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+          <Typography style={{fontSize: "8px", marginTop: 5}}>Выбрать место</Typography>
+          </div>
+        </div>
+    </Container>
+  )
 }
 
 
-function PlaceSelection(props) {
-    return (
-        <Box style={{marginBottom: 30}}>
-            {/* style={{color: "#91B3FA"}}*/}
-            <Typography align={"left"}>
-                Выберите места
+const commentsUseStyles = makeStyles(theme => ({
+  card: {
+    display: "flex",
+    flexDirection: "column",
+    marginTop: 10,
+    boxShadow: "none",
+    background: "#F7F7F9"
+  },
+  cardHeader: {
+    width: "100%",
+    paddingBottom: 7,
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center"
+  },
+  accardionCards: {
+    display: "flex",
+    flexDirection: "column",
+    boxShadow: "none"
+  }
+}));
+
+const data = [
+  {
+    id: 1,
+    name: "Владислав Вовк",
+    stars: 3.4,
+    comment: "Все отлично, поездка мне понравилась. Была вода и хорошая беседа."
+  },
+  {
+    id: 2,
+    name: "Качан Данила",
+    stars: 4.0,
+    comment: "Все отлично, поездка мне понравилась. Была вода и хорошая беседа."
+  },
+  {
+    id: 3,
+    name: "Анатолий Кучарян",
+    stars: 2.9,
+    comment: "Все отлично, поездка мне понравилась. Была вода и хорошая беседа."
+  },
+  {
+    id: 4,
+    name: "Анастасия Синякова",
+    stars: 5.0,
+    comment: "Все отлично, поездка мне понравилась. Была вода и хорошая беседа."
+  }
+]
+
+const Comments = () => {
+  const classes = commentsUseStyles();
+
+  return (
+    <Container>
+      <Accordion className={classes.accardionCards}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          id="comments"
+        >
+          <Typography align="left">Отзывы</Typography>
+        </AccordionSummary>
+        <AccordionDetails className={classes.accardionCards}>
+          {
+            data.map(item => {
+              return (
+                <Card className={classes.card}>
+                  <CardContent>
+                    <div className={classes.cardHeader}>
+                      <Typography style={{fontSize: "11px"}}>{item.name}</Typography>
+                      <div style={{display: "flex", alignItems: "center"}}>
+                        <Typography style={{fontSize: "9px"}}variant="caption">{item.stars}</Typography>
+                        <StarIcon style={{color: "#FFA011", fontSize: "12px"}} />
+                      </div>
+                    </div>
+                    <Typography align="left" style={{fontSize: "10px"}}>{item.comment}</Typography>
+                  </CardContent>
+                </Card>
+              )
+            })
+          }
+        </AccordionDetails>
+      </Accordion>
+      <div>
+        <Typography align="left" style={{fontSize: "10px", fontWeight: "bold"}}>Сообщение от водителя:</Typography>
+        <Card style={{width: "100%", minHeight: "115px", marginTop: 10}}>
+          <CardContent>
+            <Typography style={{fontSize: "10px"}} align="left">
+              Заберу с вашего дома.
             </Typography>
-        </Box>
-    );
+          </CardContent>
+        </Card>
+      </div>
+    </Container>
+  )
 }
 
-function BillingMethod (props) {
-    let classes = useBillingStyles();
-    return (
-        <Grid container direction={"column"}>
-            <Typography align={"left"} style={{marginBottom: 20}}>
-                Способ оплаты
-            </Typography>
+const payUseStyles = makeStyles(theme => ({
+ root: {
+   width: "100%",
+   marginTop: 10
+ },
+ icons: {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  marginTop: 30
+},
+icon: {
+  borderRadius: "50%",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  width: 40,
+  height: 40,
+  background: "#E8E8E8",
+  marginLeft: 10,
+  "&:nth-child(1)": {
+    marginLeft: 0
+  }
+},
+buttons: {
+ display: "flex",
+ justifyContent: "center",
+ marginTop: 30,
+ marginLeft: -15,
+ paddingBottom: 20
+},
+btnBack: {
+  backgroundColor: "rgba(41, 67, 103, 1)",
+  color: "rgba(255, 255, 255, 1)",
+  fontSize: "12px",
+  textTransform: "none",
+  width: "20%"
+},
+btnChoice: {
+  backgroundColor: "rgba(41, 67, 103, 1)",
+  color: "rgba(255, 255, 255, 1)",
+  fontSize: "12px",
+  textTransform: "none",
+  width: "70%",
+  marginLeft: 20
+}
+}))
 
-            <Grid item xs={12}>
-                <Grid container justify={"space-around"} direction={"row"} >
+const Pay = () => {
+  const classes = payUseStyles();
+  const [value, setValue] = React.useState(0);
 
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+  return (
+    <Container>
+      <Typography style={{marginTop: 20}} align="left">Способ оплаты</Typography>
+      <Tabs centered className={classes.root} value={value} onChange={handleChange} indicatorColor="primary" textColor="primary">
+      <Tab wrapped className={classes.item} icon={<img src={nalPay} />} label="Наличные"  />
+      <Tab wrapped className={classes.item} label="Перевод" icon={<img src={cardPay} />} />
+      </Tabs>
+      <div className={classes.icons}>
+                  <div className={classes.icon}><img src={baby} /></div>
+                  <div className={classes.icon}><img src={smoke} /></div>
+                  <div className={classes.icon}><img src={dog} /></div>
+                  <div className={classes.icon}><img src={song} /></div>
+                  <div className={classes.icon}><img src={pocket} /></div>
+      </div>
 
-                    {/* оплата наличными */}
-                    <Grid item xs={3} className={classes.billingMethod}>
-                        <Grid container direction={"column"}>
-                            <Typography>
-                                Наличные
-                            </Typography>
-                            <img src={MoneySVG}/>
-                            <Checkbox checked={true}/>
+      <div className={classes.buttons}>
+        <Button className={classes.btnBack} variant={"contained"} color={"primary"}>
+          <ChevronLeftIcon />
+        </Button>
+        <Button className={classes.btnChoice} variant={"contained"} color={"primary"}>
+          Выбрать водителя
+        </Button>
 
-                        </Grid>
-                    </Grid>
-
-                    {/* оплата картой */}
-                    <Grid item xs={3} className={classes.billingMethod}>
-                        <Grid container direction={"column"}>
-                            <Typography>
-                                Картой
-                            </Typography>
-                            <img src={CardSVG}/>
-                            <Checkbox checked={false}/>
-
-                        </Grid>
-                    </Grid>
-
-                </Grid>
-            </Grid>
-        </Grid>
-    );
+      </div>
+    </Container>
+  )
 }
 
-export function ObserveTrip () {
-    let classes = useCardStyles();
-    // для скроллера фотографий
-    const theme = useTheme();
-    const [activeStep, setActiveStep] = React.useState(0);
-    const maxSteps = tutorialSteps.length;
-    let comments = [1, 2, 3, 4]
-
-    const handleNext = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    };
-
-    const handleBack = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    };
-
-
+export const ObserveTrip = (props) => {
+    
     return (
-        <Box>
-            <Header/>
-            <Container style={{marginTop: 30}}>
-
-                {/* top bar */}
-
-                <Avatar src={AvatarDemo}
-                        style={{
-                            marginBottom: 20,
-                            height: theme.spacing(10),
-                            width: theme.spacing(10)
-                        }}
-                />
-
-                <Grid container
-                      style={{
-                          position: "relative",
-                          marginBottom: 20
-                      }}>
-                    <Typography align="left">
-                        Elon Mask - 49 лет
-                    </Typography>
-
-                    <Box style={{position: "absolute", right: 0}}>
-                        2,9
-                        <img src={starSVG} style={{position: "relative", top: "3px", height: "15px"}}/>
-                    </Box>
-                </Grid>
-
-                <Grid container style={{marginBottom: 30}}>
-                    <Typography variant={"caption"} align={"left"}>
-                        3 свободных места
-                    </Typography>
-                </Grid>
-
-                <Accordion>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon/>}>
-                        Маршрут
-                    </AccordionSummary>
-
-                    <AccordionDetails>
-
-
-                        <Timeline align="right">
-                            <TimelineItem>
-                                <TimelineSeparator>
-                                    <TimelineDot />
-                                    <TimelineConnector />
-                                </TimelineSeparator>
-                                <TimelineContent>Москва</TimelineContent>
-                            </TimelineItem>
-                            <TimelineItem>
-                                <TimelineSeparator>
-                                    <TimelineDot />
-                                    <TimelineConnector />
-                                </TimelineSeparator>
-                                <TimelineContent>Сочи</TimelineContent>
-                            </TimelineItem>
-                            <TimelineItem>
-                                <TimelineSeparator>
-                                    <TimelineDot />
-                                    <TimelineConnector />
-                                </TimelineSeparator>
-                                <TimelineContent>Владив<br/>осток</TimelineContent>
-                            </TimelineItem>
-                            <TimelineItem>
-                                <TimelineSeparator>
-                                    <TimelineDot />
-                                </TimelineSeparator>
-                                <TimelineContent>Стокго<br/>льм</TimelineContent>
-                            </TimelineItem>
-                        </Timeline>
-                        {/*  маршрут  */}
-
-                    </AccordionDetails>
-                </Accordion>
-
-
-                <Accordion>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon/>}>
-                        Авто
-                    </AccordionSummary>
-
-                    <AccordionDetails>
-
-                        <Container>
-                            {/*  про автомобиль  */}
-                            <Grid container class={classes.aboutCar}>
-                                <Typography align="left" className={classes.aboutCarSecondaryText}>
-                                    Модель
-                                </Typography>
-
-                                <Typography align="left" className={classes.aboutCarSecondaryText}>
-                                    Комфорт
-                                </Typography>
-
-                                <Typography align="left" className={classes.aboutCarSecondaryText}>
-                                    Цвет
-                                </Typography>
-                            </Grid>
-
-                            {/*  тут фотки автомобиля  */}
-                            <div className={classes.root}>
-                                <Paper square elevation={0} className={classes.header}>
-                                    <Typography>{tutorialSteps[activeStep].label}</Typography>
-                                </Paper>
-                                <img
-                                    className={classes.img}
-                                    src={tutorialSteps[activeStep].imgPath}
-                                    alt={tutorialSteps[activeStep].label}
-                                />
-                                <MobileStepper
-                                    steps={maxSteps}
-                                    position="static"
-                                    variant="text"
-                                    activeStep={activeStep}
-                                    nextButton={
-                                        <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}>
-                                            Next
-                                            {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
-                                        </Button>
-                                    }
-                                    backButton={
-                                        <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-                                            {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-                                            Back
-                                        </Button>
-                                    }
-                                />
-                            </div>
-
-                        </Container>
-
-                    </AccordionDetails>
-                </Accordion>
-
-                <Accordion style={{marginBottom: 30}}>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon/>}>
-                        Отзывы
-                    </AccordionSummary>
-
-                    <AccordionDetails>
-                        <Container>
-                            {comments.map(comment => <Comment {...comment}/>)}
-                        </Container>
-                    </AccordionDetails>
-                </Accordion>
-
-                {/*  сообщение от водителя  */}
-                <DriverMessage/>
-
-                <PlaceSelection/>
-
-                {/*  способ оплаты  */}
-                <BillingMethod/>
-
-                <Grid container justify={"space-around"} style={{marginBottom: "30px", marginTop: "30px"}}>
-                    <Button variant="contained" color="primary">
-                        назад
-                    </Button>
-
-                    <Button variant="contained" color="primary">
-                        выбрать водителем
-                    </Button>
-                </Grid>
-            </Container>
-        </Box>
-    );
+        <Container>
+            <Header />
+            <About />
+            <Auto />
+            <Comments />
+            <Pay />
+        </Container>
+    )
 }
