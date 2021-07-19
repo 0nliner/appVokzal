@@ -15,17 +15,26 @@ import Rating from '@material-ui/lab/Rating';
 import AvatarDemo from "../../images/avatar.png";
 // icons
 import RingSVG from  "../../icons/ring.svg";
-import MessageSVG from  "../../icons/message.svg";
+import MessageSVG from  "../../icons/chat.svg";
 import smsSVG from  "../../icons/SMS.svg";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import {Places} from "../components/Places";
+import {Review} from "../components/Review";
+
+import baby from "../../icons/baby.svg";
+import smoke from "../../icons/smoke.svg";
+import dog from "../../icons/dog.svg";
+import song from "../../icons/song.svg";
+import pocket from "../../icons/pocket.svg";
+import React from "react";
 
 
 const useStyles = makeStyles((theme) => ({
-    large: {
-        width: theme.spacing(20),
-        height: theme.spacing(20),
-        margin: "auto"
-    },
+    // large: {
+    //     width: theme.spacing(12),
+    //     height: theme.spacing(12),
+    //     margin: "auto"
+    // },
     icon: {
         width: "50px",
         height: "50px",
@@ -35,11 +44,40 @@ const useStyles = makeStyles((theme) => ({
         placeContent: "center",
         margin: "10px",
         marginTop: "20px"
-    }
+    },
+
+
+    large: {
+        width: theme.spacing(8),
+        height: theme.spacing(8),
+    },
+    information: {
+        paddingLeft: 40
+    },
+    conditions: {
+        marginTop: 30,
+    },
+    icons: {
+        display: "flex",
+        marginTop: 10
+    },
+    ruleIcon: {
+        borderRadius: "50%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: 40,
+        height: 40,
+        background: "#E8E8E8",
+        marginLeft: 10
+    },
+
 }));
+
 
 function Icon({src}) {
     let classes = useStyles();
+    // let differentClasses = aboutUseStyles();
 
     return (
         <div className={classes.icon}>
@@ -50,6 +88,13 @@ function Icon({src}) {
 
 export function AccountPage (props) {
     let classes = useStyles();
+    let reviews = [
+        {
+            raiting: 3.9,
+            text: "Тестовый текст",
+            author: "Гоша Пирожочник"
+        }
+    ];
 
     return (
         <Box>
@@ -57,28 +102,33 @@ export function AccountPage (props) {
             <Container xs={"md"}>
                 <Grid container>
                     {/* иконка юзера*/}
-                    <Avatar className={classes.large} src={AvatarDemo} style={{marginTop: 20}}/>
-
-                    <Grid container style={{marginTop: 20, marginBottom: 30}} direction={"column"}>
-                        <Typography variant={"h6"} style={{color: "#91B3FA"}} align={"left"}>
-                            Евгений Аляска
-                        </Typography>
-                        {/* рейтинг юзера*/}
-                        <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
+                    <Grid item xs={4}>
+                        <Avatar className={classes.large} src={AvatarDemo} style={{marginTop: 20}}/>
                     </Grid>
 
-                    <Grid container direction={"column"}>
-                        <Typography align={"left"}>
-                            Маршрут
-                        </Typography>
+                    <Grid item xs={8} style={{paddingLeft: 10}}>
+                        <Grid container style={{marginTop: 20}} direction={"column"}>
+                            <Typography style={{color: "#294367",
+                                                fontSize: 13}}
+                                        align={"left"}>
+                                <b>
+                                    Бонгобонго - 20 лет
+                                </b>
+                            </Typography>
+                            {/* рейтинг юзера*/}
+                            <Rating name="half-rating" defaultValue={2.5} precision={0.5} size="small"/>
+                        </Grid>
 
-                        <Typography align={"left"}>
-                            Телефон
-                        </Typography>
+                        <Grid container direction={"column"}>
+                            <Typography align={"left"} variant={"caption"}>
+                                Маршрут: <span style={{color: "#757575"}}>Казань - спб</span>
+                            </Typography>
 
-                        <Typography align={"left"}>
-                            Отзывы
-                        </Typography>
+                            <Typography align={"left"} variant={"caption"}>
+                                Телефон: <span style={{color: "#757575"}}>+7(999)-999-99-99</span>
+                            </Typography>
+                        </Grid>
+
                     </Grid>
 
                     <Grid container alignItems={"center"} justify={"center"}>
@@ -87,7 +137,7 @@ export function AccountPage (props) {
                         <Icon src={smsSVG}/>
                     </Grid>
 
-                    <Accordion style={{marginTop: 30, marginBottom: 30}}>
+                    <Accordion style={{marginTop: 30}}>
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon/>}>
                             <Typography align={"left"}>О себе</Typography>
@@ -100,75 +150,50 @@ export function AccountPage (props) {
                             </Typography>
                         </AccordionDetails>
                     </Accordion>
+                    {/*, marginBottom: 30 */}
+                    <Accordion style={{width: "100%"}}>
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon/>}>
+                            <Typography align={"left"}>Посадка</Typography>
+                        </AccordionSummary>
 
-                    {/* детали поездки */}
-                    <Grid container direction={"column"}>
-                        {/* с ребёнком */}
-                        <Grid item align="left" style={{marginBottom: 10}}>
-                            <FormControl className={classes.formControl}>
-                                <InputLabel id="child">Ребёнок</InputLabel>
-                                <Select
-                                    labelId="childSelector"
-                                    id="child"
-                                    value={"с ребёнком"}
-                                    // onChange={handleChange}
-                                >
-                                    <MenuItem value={"с ребёнком"}>с ребёнком</MenuItem>
-                                    <MenuItem value={"без ребёнка"}>без ребёнка</MenuItem>
-                                </Select>
-                            </FormControl>
+                        <AccordionDetails>
+                            <Grid container>
+                                <Grid item justify="center">
+                                    <Places/>
+                                </Grid>
+                            </Grid>
+                        </AccordionDetails>
+                    </Accordion>
+
+                    {/*  отзывы  */}
+                    <Accordion style={{width: "100%"}}>
+                        <AccordionSummary expandIcon={<ExpandMoreIcon/>}>
+                            <Typography align={"left"}>
+                                Отзывы
+                            </Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+
+                            {reviews.map(review_data => <Review {...review_data}/>)}
+
+                        </AccordionDetails>
+                    </Accordion>
+
+
+                    <Grid container justify="center" style={{marginBottom: 40}}>
+                        <Grid item className={classes.conditions}>
+                            <Typography align="left" variant="body1">Условия поездки:</Typography>
+                            <div className={classes.icons}>
+                                <div className={classes.ruleIcon}><img src={baby} /></div>
+                                <div className={classes.ruleIcon}><img src={smoke} /></div>
+                                <div className={classes.ruleIcon}><img src={dog} /></div>
+                                <div className={classes.ruleIcon}><img src={song} /></div>
+                                <div className={classes.ruleIcon}><img src={pocket} /></div>
+                            </div>
                         </Grid>
-
-                        {/* курящий */}
-                        <Grid item align="left" style={{marginBottom: 10}}>
-                            <FormControl className={classes.formControl}>
-                                <InputLabel id="smoking">курящий</InputLabel>
-                                <Select
-                                    labelId="SmokingSelector"
-                                    id="Smoking"
-                                    value={"курящий"}
-                                    >
-
-                                    <MenuItem value={"курящий"}>курящий</MenuItem>
-                                    <MenuItem value={"не курящий"}>не курящий</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Grid>
-
-                        {/* с животным */}
-                        <Grid item align="left" style={{marginBottom: 10}}>
-                            <FormControl className={classes.formControl}>
-                                <InputLabel id="pet">С животным</InputLabel>
-                                <Select
-                                    labelId="PetSelector"
-                                    id="Pet"
-                                    value={"без животного"}
-                                >
-
-                                    <MenuItem value={"с животным"}>с животным</MenuItem>
-                                    <MenuItem value={"без животного"}>без животного</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Grid>
-
-                        {/* музыка */}
-                        <Grid item align="left" style={{marginBottom: 30}}>
-                            <FormControl className={classes.formControl}>
-                                <InputLabel id="music">Музыка</InputLabel>
-                                <Select
-                                    labelId="MusicSelector"
-                                    id="Music"
-                                    value={"люблю музыку"}
-                                >
-
-                                    <MenuItem value={"люблю музыку"}>люблю музыку</MenuItem>
-                                    <MenuItem value={"не люблю музыку"}>не люблю музыку</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Grid>
-
-
                     </Grid>
+
                 </Grid>
             </Container>
         </Box>);
