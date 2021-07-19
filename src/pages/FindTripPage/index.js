@@ -41,13 +41,10 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import AvatarDemo from "../../images/avatar.png";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import {KeyboardArrowLeft, KeyboardArrowRight} from "@material-ui/icons";
-import { createStore } from "redux";
-import { root_reducer } from "../../redux/findTrips/reducers";
 import { seatsSelector, searchSelector } from "../../redux/findTrips/selectors";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { Provider } from "react-redux";
 import {add_count, remove_count, add_length, add_weight, add_width, remove_length, remove_weight, remove_width, change_city, change_city_from, change_city_to} from '../../redux/findTrips/actions';
-const store = createStore(root_reducer);
 
 // --------------------- Search component -------------
 const useSearchStyles = makeStyles( theme => ({
@@ -92,15 +89,16 @@ const useSearchStyles = makeStyles( theme => ({
 const Search = () => {
     const classes = useSearchStyles();
     const city = useSelector(searchSelector);
+    const dispatch = useDispatch();
+
     const change_city_btn = () => {
-      store.dispatch(change_city())
-      // console.log(city)
+      dispatch(change_city())
     };
 
     return (
         <Container className={classes.root}>
-            <input onChange={e => store.dispatch(change_city_from(e.target.value))} value={city.from} placeholder="Откуда" type="text"  className={classes.input} />
-            <input onChange={e => store.dispatch(change_city_to(e.target.value))} value={city.to} placeholder="Куда" type="text"  className={classes.input} />
+            <input onChange={e => dispatch(change_city_from(e.target.value))} value={city.from} placeholder="Откуда" type="text"  className={classes.input} />
+            <input onChange={e => dispatch(change_city_to(e.target.value))} value={city.to} placeholder="Куда" type="text"  className={classes.input} />
             <IconButton onClick={change_city_btn} className={classes.swap}><SwapVertIcon /></IconButton>
         </Container>
     );
@@ -186,6 +184,7 @@ const useServiceStyles = makeStyles( theme => ({
 const Service = () => {
     const classes = useServiceStyles();
     const [value, setValue] = React.useState(0);
+    const dispatch = useDispatch();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -198,35 +197,35 @@ const Service = () => {
   const seats = useSelector(seatsSelector);
   // console.log(seats)
   const decrement_count = () => {
-    store.dispatch(remove_count());
+    dispatch(remove_count());
   }
 
   const decrement_width = () => {
-    store.dispatch(remove_width());
+    dispatch(remove_width());
   }
 
   const decrement_length = () => {
-    store.dispatch(remove_length());
+    dispatch(remove_length());
   }
 
   const decrement_weight = () => {
-    store.dispatch(remove_weight());
+    dispatch(remove_weight());
   }
 
   const increment_count = () => {
-    store.dispatch(add_count());
+    dispatch(add_count());
   }
 
   const increment_width = () => {
-    store.dispatch(add_width());
+    dispatch(add_width());
   }
 
   const increment_length = () => {
-    store.dispatch(add_length());
+    dispatch(add_length());
   }
 
   const increment_weight = () => {
-    store.dispatch(add_weight());
+    dispatch(add_weight());
   }
   
   
@@ -452,15 +451,13 @@ const Drivers = (props) => {
 
 export const FindTripPage = (props) => {
     return (
-      <Provider store={store}>
-            <Box>
-                <Header/>
-                <Container>
-                    <Search />
-                    <Service />
-                    <Drivers />
-                </Container>
-            </Box>
-      </Provider>
-        );
+        <Box>
+            <Header/>
+            <Container>
+                <Search />
+                <Service />
+                <Drivers />
+            </Container>
+        </Box>
+    );
 }
