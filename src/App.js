@@ -11,6 +11,8 @@ import {LoginPage} from "./pages/LoginPage";
 import {RegistrationPage} from "./pages/RegistrationPage";
 import {MapPage} from "./pages/MapPage";
 import {DialogPage} from "./pages/DialogPage";
+import CreateTrip from './pages/CreateTrip';
+
 
 
 function App() {
@@ -25,6 +27,7 @@ function App() {
             <Route path={"/trips"} component={TripsPage}/>
             <Route path={"/account"} component={AccountPage}/>
             <Route path={"/reservations"} component={ReservationsPage}/>
+            <Route path={"/createTrip"} component={CreateTrip}/>
 
             {/* клиентская часть */}
             <Route path={"/findTrip"} component={FindTripPage}/>
