@@ -12,13 +12,10 @@ import {LoginPage} from "./pages/LoginPage";
 import {RegistrationPage} from "./pages/RegistrationPage";
 import {MapPage} from "./pages/MapPage";
 import {DialogPage} from "./pages/DialogPage";
-import {Provider} from "react-redux";
-// redux
-import { root_reducer } from "./redux/findTrips/reducers";
-import { createStore } from "redux";
-// react
-import React from "react";
-
+import CreateTrip from './pages/CreateTrip';
+import { createStore } from 'redux';
+import { root_reducer } from './redux/findTrips/reducers';
+import { Provider } from 'react-redux';
 
 function App() {
   const store = createStore(root_reducer);
@@ -35,6 +32,7 @@ function App() {
               <Route path={"/trips"} component={TripsPage}/>
               <Route path={"/account"} component={AccountPage}/>
               <Route path={"/reservations"} component={ReservationsPage}/>
+              <Route path={"/createTrip"} component={CreateTrip}/>
 
               {/* клиентская часть */}
               <Route path={"/findTrip"} component={FindTripPage}/>

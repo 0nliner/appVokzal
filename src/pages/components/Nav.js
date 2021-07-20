@@ -74,6 +74,8 @@ export function Nav() {
                 return "/map";
               case 7:
                 return "/dialog";
+              case 8:
+                return "/createTrip";
               default:
                 return "/map";
             }
@@ -110,7 +112,7 @@ export function Nav() {
                     <ListItemIcon> <FlagIcon /> </ListItemIcon>
                     <ListItemText primary="Код"></ListItemText>
                 </ListItem> */}
-                {['Профиль', 'Поездка', 'Все поездки', 'Бронирование', 'Найти поездку', 'Выбрать поездку', 'Карта', 'Чат'].map((text, index) => (
+                {['Профиль', 'Поездка', 'Все поездки', 'Бронирование', 'Найти поездку', 'Выбрать поездку', 'Карта', 'Чат', 'Создать поездку'].map((text, index) => (
                     <ListItem button  component={Link} href={link(index)}>
                         {/*<ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>*/}
                         <ListItemText primary={text} />
