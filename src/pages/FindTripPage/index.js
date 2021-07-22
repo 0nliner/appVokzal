@@ -1,19 +1,13 @@
 import React from "react";
 import {
-    Accordion, AccordionDetails,
-    AccordionSummary,
     Avatar,
     Box,
-    Button,
     Card,
     CardActionArea,
     CardContent,
     Container,
-    createStyles,
-    Grid,
-    makeStyles, MobileStepper, Paper,
-    TextField,
-    Typography, useTheme
+    makeStyles,
+    Typography, 
 } from "@material-ui/core";
 import {Header} from "../components/Header";
 import Tabs from '@material-ui/core/Tabs';
@@ -22,7 +16,6 @@ import IconButton from '@material-ui/core/IconButton';
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
-  KeyboardTimePicker,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 // icons
@@ -39,11 +32,8 @@ import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 // images
 import AvatarDemo from "../../images/avatar.png";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import {KeyboardArrowLeft, KeyboardArrowRight} from "@material-ui/icons";
 import { seatsSelector, searchSelector } from "../../redux/findTrips/selectors";
 import {useDispatch, useSelector} from "react-redux";
-import { Provider } from "react-redux";
 import {add_count, remove_count, add_length, add_weight, add_width, remove_length, remove_weight, remove_width, change_city, change_city_from, change_city_to} from '../../redux/findTrips/actions';
 
 // --------------------- Search component -------------

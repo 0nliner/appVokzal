@@ -11,7 +11,10 @@ import DateFnsUtils from '@date-io/date-fns';
 
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
+import {useDispatch, useSelector} from "react-redux";
 
+import { seatsSelector, searchSelector } from "../../redux/findTrips/selectors";
+import {add_count, remove_count} from '../../redux/findTrips/actions';
 const seatsUseStyles = makeStyles(theme => ({
   seats: {
     width: "45%",
@@ -42,7 +45,15 @@ const seatsUseStyles = makeStyles(theme => ({
 export const Seats = () => {
   const classes = seatsUseStyles();
   const [selectedDate, setSelectedDate] = React.useState(new Date('2021-07-30T21:11:54'));
-
+  const dispatch = useDispatch();
+  const seats = useSelector(seatsSelector);
+  // console.log(seats)
+  const decrement_count = () => {
+    dispatch(remove_count());
+  }
+  const increment_count = () => {
+    dispatch(add_count());
+  }
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
@@ -50,12 +61,12 @@ export const Seats = () => {
     <Container>
       <Container className={classes.rootSeats}>
         <div className={classes.seats}>
-          <Typography variant="body2"> Кол-во мест: {2}</Typography>
+          <Typography variant="body2"> Кол-во мест: {seats.count}</Typography>
           <div>
-            <IconButton  style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA"}} aria-label="remove">
+            <IconButton onClick={decrement_count}  style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA"}} aria-label="remove">
               <RemoveIcon style={{fontSize: "12px"}} />
             </IconButton>
-            <IconButton  style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA", marginLeft: 6}} aria-label="add">
+            <IconButton onClick={increment_count}  style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA", marginLeft: 6}} aria-label="add">
             <AddIcon style={{fontSize: "12px"}}/>
             </IconButton>
           </div>

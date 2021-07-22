@@ -14,6 +14,7 @@ import {
 from "./action_type";
 import {combineReducers} from "redux";
 import {PlacesReducer} from "../AccountPage/reducers";
+import { ways_reducer } from "../CreatePage/reducers";
 
 
 let SEATS_INITIAL_STATE = {
@@ -189,5 +190,8 @@ export function seats_reducer (state=SEATS_INITIAL_STATE, action) {
     }
 }
 
-export const root_reducer = combineReducers({seats_reducer: seats_reducer,
-                                                     places_reducer: PlacesReducer});
+export const root_reducer = combineReducers({
+  seats_reducer: seats_reducer,
+  places_reducer: PlacesReducer,
+  ways_reducer: ways_reducer
+});
