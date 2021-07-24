@@ -16,6 +16,7 @@ import CreateTrip from './pages/CreateTrip';
 import { createStore } from 'redux';
 import { root_reducer } from './redux/findTrips/reducers';
 import { Provider } from 'react-redux';
+import {ActiveTripPage} from "./pages/ActiveTripPage";
 
 function App() {
   const store = createStore(root_reducer);
@@ -25,9 +26,11 @@ function App() {
         <BrowserRouter>
           <div className="App">
             <Switch>
+              <Route path={"/"} exact component={AccountPage}/>
+
               <Route path={"/login"} component={LoginPage}/>
               <Route path={"/registration"} component={RegistrationPage}/>
-              <Route path={"/personalArea"} component={PersonalArea}/>
+              {/*<Route path={"/personalArea"} component={PersonalArea}/>*/}
               <Route path={"/trip"} component={TripPage}/>
               <Route path={"/trips"} component={TripsPage}/>
               <Route path={"/account"} component={AccountPage}/>
@@ -40,6 +43,7 @@ function App() {
               <Route path={"/map"} component={MapPage}/>
               <Route path={"/dialog"} component={DialogPage}/>
               <Route path={"/path"} component={MapPage}/>
+              <Route path={"/active_trip"} component={ActiveTripPage}/>
 
             </Switch>
 

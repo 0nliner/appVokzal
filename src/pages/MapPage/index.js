@@ -1,4 +1,4 @@
-import {Avatar, Box, Grid, makeStyles, Typography} from "@material-ui/core";
+import {Avatar, Box, Grid, makeStyles, TextareaAutosize, Typography} from "@material-ui/core";
 import {Header} from "../components/Header";
 import { Nav } from '../components/Nav';
 import mapboxgl from 'mapbox-gl';
@@ -8,8 +8,10 @@ import test_img from "../../images/avatar.png";
 //icons
 import MsgSvg from "../../icons/message.svg";
 import PhoneSvg from "../../icons/ring.svg";
-import {ArrowDownwardSharp, ArrowDropDownSharp} from "@material-ui/icons";
+import {ArrowDropDownSharp} from "@material-ui/icons";
 
+import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions'
+import '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css'
 
 
 mapboxgl.accessToken = "pk.eyJ1IjoibjBubGluZXIiLCJhIjoiY2txNmNmN3BvMWJ1NzJwb2M1czc3ZWZ6NSJ9.860SgUxyGaAWIGja2sOugw";
@@ -36,6 +38,7 @@ let useMapStyles = makeStyles(theme => ({
     topbar: {
         position: "fixed",
         top: 0,
+        zIndex: 1000,
         height: "48px",
         // width: "calc(100% - 20px )",
         marginLeft: "auto",
@@ -55,6 +58,13 @@ export function MapPage (props) {
     const mapContainer = useRef(null);
     const map = useRef(null);
 
+    // TODO:
+    //   нам приходят названия городов
+    //   мы при помощи сторонней API находим координаты места
+    //   размечаем маршрут и добавляем его в mapbox
+
+    const breakpoints_data = [];
+
     let [currectSelection, setCurrectSelection] = useState(false);
 
     // стандартная позиция на карте
@@ -71,6 +81,8 @@ export function MapPage (props) {
     const [lng2, setLng2] = useState();
     const [lat2, setLat2] = useState();
 
+    const [showReason, setShowReason] = useState(true);
+
 
     const [showDropdown, setShowDropdown] = useState(false);
 
@@ -84,26 +96,22 @@ export function MapPage (props) {
             zoom: zoom
         });
 
+
+        // добавляем directions плагин
+        map.current.addControl(
+            new MapboxDirections({
+                accessToken: mapboxgl.accessToken
+            }),
+            'top-left'
+        );
+
+        // let controls = document.querySelector(".mapbox-directions-component mapbox-directions-inputs");
+        // console.log(controls);
+        // https://api.mapbox.com/directions/v5/mapbox/driving-traffic/-71.026897%2C42.299757%3B-71.13895263672124%2C42.02438629001665.json?geometries=polyline&steps=true&overview=full&language=en&access_token=pk.eyJ1IjoibjBubGluZXIiLCJhIjoiY2txNmNmN3BvMWJ1NzJwb2M1czc3ZWZ6NSJ9.860SgUxyGaAWIGja2sOugw
+
+        // работа с нажатиями
         map.current.on('click', function(e) {
-            // console.log(currectSelection)
-            if (currectSelection === "from") {
-                setCurrectSelection(false);
-                setLng1(e.lngLat.lng);
-                setLat1(e.lngLat.lat);
-                console.log(1)
-            }
-
-            else if (currectSelection === "to") {
-                setCurrectSelection(false);
-                setLng2(e.lngLat.lng);
-                setLat2(e.lngLat.lat);
-                // console.log(2)
-            }
-            else {
-                // нам всё равно что тут происходит
-                // console.log(3)
-            }
-
+            // TODO: добавить установку места
         });
 
     });
@@ -111,8 +119,21 @@ export function MapPage (props) {
 
     return (
         <Box>
-            {/*<Header/>*/}
-            {/* topbar */}
+            {/* controls */}
+            <Grid container
+                  direction={"column"}
+                  style={{
+                      position: "fixed",
+                      zIndex: 999,
+                      width: 200,
+                      marginTop: 30,
+                      marginLeft: 30
+                  }}>
+            </Grid>
+
+            <div ref={mapContainer} className={classes.map}  />
+
+
             <Grid container direction={"row"} className={classes.topbar}>
 
                 <Grid item xs={6} direction={"row"} justify={"space-between"} style={{position: "relative"}}>
@@ -153,33 +174,6 @@ export function MapPage (props) {
                 </Grid>
             </Grid>
 
-            {/* controls */}
-            <Grid container
-                  direction={"column"}
-                  style={{
-                      position: "fixed",
-                      zIndex: 999,
-                      width: 200,
-                      marginTop: 30,
-                      marginLeft: 30
-                  }}>
-
-                {/*<input placeholder={"from"}*/}
-                {/*       className={classes.input}*/}
-                {/*       onClick={e => {*/}
-                {/*            // todo: тут стейт не обновляется, что очень странно :/ . Попробовать приебашить это redux'ом*/}
-                {/*            setCurrectSelection("from");*/}
-                {/*            console.log(currectSelection);*/}
-                {/*        }}*/}
-                {/*       style={{*/}
-                {/*           marginBottom: 13*/}
-                {/*       }}/>*/}
-
-                {/*<input placeholder={"to"}*/}
-                {/*       className={classes.input}*/}
-                {/*       onClick={e => setCurrectSelection("to")}/>*/}
-            </Grid>
-
             <Grid container style={{
                 position: "fixed",
                 bottom: showDropdown ? 0 : -140,
@@ -192,6 +186,7 @@ export function MapPage (props) {
 
                 height: 170,
                 width: "100%",
+                zIndex: 1000
             }}>
                 <Grid item xs={12} onClick={(e)=>setShowDropdown(!showDropdown)}>
                     <ArrowDropDownSharp style={{
@@ -214,6 +209,28 @@ export function MapPage (props) {
                         </b>
                     </Typography>
 
+                    <Grid container justify={"center"}
+                        style={{
+                            position: "absolute",
+                            top: -50,
+                            display: showReason ? "block" : "none",
+                        }}
+                    >
+                        <TextareaAutosize
+                            placeholder={"Напишите причину отмены поездки"}
+                            style={{
+                                padding: 5,
+                                height: 150,
+                                width: 150,
+                                border: "none",
+                                borderRadius: 5,
+                                boxShadow: "0px 0px 7px 3px rgba(0, 0, 0, 0.25)",
+                                color: "#868686"
+                            }}
+                        />
+
+                    </Grid>
+
                     <Grid item style={{
                         background: "#294367",
                         borderRadius: 50,
@@ -221,13 +238,13 @@ export function MapPage (props) {
                         padding: "7px 20px",
                         width: 200,
                         margin: "20px auto"
-                    }}>
+                    }}
+                    onClick={()=>setShowReason(!showReason)}>
                         отменить поездку
                     </Grid>
 
                 </Grid>
             </Grid>
-            <div ref={mapContainer} className={classes.map}  />
         </Box>
     );
 }
