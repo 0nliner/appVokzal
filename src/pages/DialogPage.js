@@ -47,7 +47,7 @@ function OtherMsg (props) {
 
             <Box className={classes.msg} style={{left: 10, backgroundColor: "#16283a"}}>
                 <Typography align="left">
-                    привет, дружочек пирожочек. Мамколюбы на связи
+                    Тестовое сообщение
                 </Typography>
 
                 <Typography style={{fontSize: "0.7em", marginTop: 15}} align="right">
