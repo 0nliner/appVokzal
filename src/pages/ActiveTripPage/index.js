@@ -1,8 +1,9 @@
-import {Avatar, Box, Grid, makeStyles, Typography} from "@material-ui/core";
+import {Avatar, Box, Grid, makeStyles, TextareaAutosize, TextField, Typography} from "@material-ui/core";
 import {Header} from "../components/Header";
 import { Nav } from '../components/Nav';
 import mapboxgl from 'mapbox-gl';
 import {useEffect, useRef, useState} from "react"; // eslint-disable-line import/no-webpack-loader-syntax
+import Rating from '@material-ui/lab/Rating';
 //images
 import test_img from "../../images/avatar.png";
 //icons
@@ -33,11 +34,12 @@ let useMapStyles = makeStyles(theme => ({
         position: "absolute",
         top: 10
     },
+
     topbar: {
         position: "fixed",
         top: 0,
-        height: "48px",
-        // width: "calc(100% - 20px )",
+        minHeight: "48px",
+        zIndex: 1000,
         marginLeft: "auto",
         marginRight: "auto",
         backgroundColor: "white",
@@ -77,6 +79,7 @@ export function ActiveTripPage (props) {
 
         map.current.on('click', function(e) {
             console.log("click");
+            setShowDropdown(!showDropdown);
         });
 
     });
@@ -86,39 +89,35 @@ export function ActiveTripPage (props) {
         <Box>
             {/*<Header/>*/}
             {/* topbar */}
-            <Grid container direction={"row"} className={classes.topbar}>
+            <Grid container direction={"column"} className={classes.topbar}>
 
-                {/*<Grid item xs={6} direction={"row"} justify={"space-between"} style={{position: "relative"}}>*/}
-                {/*    <img src={PhoneSvg} style={{position: "absolute", top: 7, left: 50}}/>*/}
-                {/*    <img src={MsgSvg} style={{position: "absolute", top: 7, left: 90, color: "#294367"}}/>*/}
-                {/*</Grid>*/}
+                <Grid container direction={"row"}>
+                    <Grid item derection={"column"} xs={8} alignItems={"center"}>
+                        <Typography align="left"
+                                    style={{
+                                        fontSize: "9px",
+                                        lineHeight: "11px",
+                                        marginTop: 5
+                                    }}>
+                            время в пути: 1:32
+                        </Typography>
+                        <Typography align="left"
+                                    style={{
+                                        fontSize: "9px",
+                                        lineHeight: "11px"
+                                    }}>
+                            осталось: 32км (30 минут)
+                        </Typography>
+                        <Typography align="left"
+                                    style={{
+                                        fontSize: "9px",
+                                        lineHeight: "11px"
+                                    }}>
+                            пройдено: 50км
+                        </Typography>
+                    </Grid>
 
-                <Grid item derection={"column"} xs={8} alignItems={"center"}>
-                    <Typography align="left"
-                                style={{
-                                    fontSize: "9px",
-                                    lineHeight: "11px",
-                                    marginTop: 5
-                                }}>
-                        время в пути: 1:32
-                    </Typography>
-                    <Typography align="left"
-                                style={{
-                                    fontSize: "9px",
-                                    lineHeight: "11px"
-                                }}>
-                        осталось: 32км (30 минут)
-                    </Typography>
-                    <Typography align="left"
-                                style={{
-                                    fontSize: "9px",
-                                    lineHeight: "11px"
-                                }}>
-                        пройдено: 50км
-                    </Typography>
-                </Grid>
-
-                <Grid item xs={4} justify={"center"} alignItems={"center"}>
+                    <Grid item xs={4} justify={"center"} alignItems={"center"}>
                         <Grid item>
                             <Typography align={"center"}>
                                 <b>
@@ -126,8 +125,85 @@ export function ActiveTripPage (props) {
                                 </b>
                             </Typography>
                         </Grid>
+                    </Grid>
                 </Grid>
 
+
+                <Box container style={{
+                    display: showDropdown ? "block" : "none"
+                }}>
+                    <Typography align="left" style={{marginTop:10}}>
+                        Создать метку
+                    </Typography>
+
+                    <Grid container direction={"row"} justify={"space-between"} style={{marginBottom: 15}}>
+                        <Grid item xs={5}>
+                            <TextField label={"название места"}/>
+                        </Grid>
+
+                        <Grid item xs={5}>
+                            {/* TODO: добавить дропдаун */}
+                            <TextField label={"Тип места"}/>
+                        </Grid>
+                    </Grid>
+
+                    <Typography align="left">
+                        оцените место
+                    </Typography>
+                    <Grid container justify={"left"}>
+                        <Rating
+                            name="hover-feedback"
+                            value={5.0}
+                            precision={0.5}
+                            size={"small"}
+                        />
+                    </Grid>
+
+                    <Grid conteiner justify={"center"} style={{display: "flex"}}>
+                        <Grid item style={{
+                            background: "#F9F9F9",
+                            border: "1px dashed #294367",
+                            boxShadow: "0px 0px 7px 1px rgba(0, 0, 0, 0.25)",
+                            borderRadius: 3,
+                            width: 109,
+                            height: 78,
+                            alignItems: "center",
+                            display: "grid",
+                            placeContent: "center"
+                        }}
+                              // alignItems={"center"}
+                        >
+                            <Typography variant="caption" style={{color: "#294367"}}>
+                                Добавить фото
+                            </Typography>
+                        </Grid>
+                    </Grid>
+
+                    <TextareaAutosize placeholder={"описание места"}
+                        style={{
+                            width: 222,
+                            height: 60,
+                            marginTop: 10,
+
+                            background: "#FFFFFF",
+                            boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.25)",
+                            borderRadius: 3,
+                            border: "none"
+                        }}
+                    />
+
+                    <Box style={{
+                        width: 107,
+                        height: 19,
+                        color: "white",
+                        background: "#294367",
+                        borderRadius: 48,
+                        padding: "2px 10px",
+                        margin: "20px auto"
+                    }} onClick={()=>setShowDropdown(false)}>
+                        создать метку
+                    </Box>
+                    </Box>
 
             </Grid>
 
