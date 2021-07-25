@@ -11,7 +11,7 @@ import {
     Grid, makeStyles, MobileStepper, Paper,
     Typography,
     useTheme,
-    Button, Checkbox, CardActionArea, CardContent, Tabs, Tab
+    Button, Checkbox, CardActionArea, CardContent, Tabs, Tab, IconButton
 } from "@material-ui/core";
 import StarIcon from '@material-ui/icons/Star';
 import React from "react";
@@ -26,6 +26,10 @@ import {
     TimelineItem,
     TimelineSeparator
 } from "@material-ui/lab";
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+import {Places} from "../components/Places";
 
 import autoPicture from '../../images/auto.png';
 import autoicon from '../../icons/MyCar 1.svg';
@@ -161,12 +165,37 @@ const autoUseStyles = makeStyles(theme => ({
     filter: "drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.25))",
     width: "50%",
     height: "25%"
-  }
+  },
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    backgroundColor: "white",
+    width: "85%",
+    padding: 10,
+    display: "flex",
+    flexDirection: "column"
+  },
+  btn: {
+    backgroundColor: "rgba(41, 67, 103, 1)",
+    color: "rgba(255, 255, 255, 1)",
+    fontSize: "12px",
+    textTransform: "none"
+}
 }))
 
 const Auto = () => {
   const classes = autoUseStyles();
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <Container className={classes.root}>
       <Typography align="left" variant="body2">Автомобиль:</Typography>
@@ -188,9 +217,46 @@ const Auto = () => {
         <img className={classes.image}  src={autoPicture}></img>
         <div style={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
           <Card style={{borderRadius: "14px", boxShadow: "0px 1px 4px rgba(0, 0, 0, 0.25)", maxHeight: "77px"}}>
-            <CardActionArea>
-              <CardContent style={{padding: 10}}>
-                <img  src={autoicon}/>
+            <CardActionArea >
+              <CardContent  style={{padding: 10}}>
+                
+                  <img onClick={handleOpen}  src={autoicon}/>
+             
+                <Modal
+        className={classes.modal}
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open}>
+          <div className={classes.paper}>
+            <Typography align="center" variant="h6">Выбор места</Typography>
+            <Typography style={{opacity: 0.7}} align="center" variant="p">Toyota Land Cruiser 200</Typography>
+            <Grid style={{width: "100%",display: "flex", justifyContent: "center", alignItems: "center",marginTop: 15}} container>
+              <Grid className={classes.containerPlace}>
+              <Places/>
+                <Container style={{display: "flex", justifyContent: "center", width: "100%", padding: 0, marginTop: 20, paddingBottom: 20, alignItems: "center"}}>
+                  <div style={{display: "flex", alignItems: "center"}}>
+                    <div style={{width: 10, height: 10, borderRadius: "50%", backgroundColor: "#757575"}}></div>
+                    <Typography style={{fontSize: "0.8em", marginLeft: 6}} variant={"caption"}>Место занято</Typography>
+                  </div>
+                  <div style={{display: "flex", marginLeft: 10,alignItems: "center"}}>
+                    <div style={{width: 10, height: 10, borderRadius: "50%", backgroundColor: "#27AE60"}}></div>
+                    <Typography style={{fontSize: "0.8em", marginLeft: 6}} variant={"caption"}>Место свободно</Typography>
+                  </div>
+                </Container>
+              </Grid>
+            </Grid>
+            <Button className={classes.btn} onClick={handleClose} variant={"contained"} color={"primary"} style={{marginBottom: 10}}>
+                    Потвердить
+            </Button>
+          </div>
+        </Fade>
+      </Modal>
               </CardContent>
             </CardActionArea>
           </Card>

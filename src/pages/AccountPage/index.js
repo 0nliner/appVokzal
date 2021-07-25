@@ -71,6 +71,12 @@ const useStyles = makeStyles((theme) => ({
         background: "#E8E8E8",
         marginLeft: 10
     },
+    containerPlace: {
+        display: "flex",
+        justifyContent: "center",
+        width: "80%",
+        flexDirection: "column"
+    }
 
 }));
 
@@ -158,10 +164,26 @@ export function AccountPage (props) {
                         </AccordionSummary>
 
                         <AccordionDetails>
-                            <Grid container>
-                                <Grid item justify="center">
+                            <Grid style={{width: "100%",display: "flex", justifyContent: "center", alignItems: "center",}} container>
+                                <Grid className={classes.containerPlace}>
                                     <Places/>
+                                    <Container style={{display: "flex", justifyContent: "space-between", width: "110%", padding: 0,marginLeft: -15, marginTop: 20, paddingBottom: 20, alignItems: "center"}}>
+                <div style={{display: "flex", alignItems: "center"}}>
+                  <div style={{width: 10, height: 10, borderRadius: "50%", backgroundColor: "#757575"}}></div>
+                  <Typography style={{fontSize: "8px", marginLeft: 3}} variant={"caption"}>Свободные места</Typography>
+                </div>
+                <div style={{display: "flex", marginLeft: 3,alignItems: "center"}}>
+                  <div style={{width: 10, height: 10, borderRadius: "50%", backgroundColor: "#27AE60"}}></div>
+                  <Typography style={{fontSize: "8px", marginLeft: 3}} variant={"caption"}>Забронированное место</Typography>
+                </div>
+                <div style={{display: "flex", marginLeft: 3,alignItems: "center"}}>
+                  <div style={{width: 10, height: 10, borderRadius: "50%", backgroundColor: "#EB5757"}}></div>
+                  <Typography style={{fontSize: "8px", marginLeft: 3}} variant={"caption"}>Недоступно</Typography>
+                </div>
+
+              </Container>
                                 </Grid>
+                                
                             </Grid>
                         </AccordionDetails>
                     </Accordion>
