@@ -86,15 +86,15 @@ function Trip (props) {
                   </div>
                   <div className={classes.info}>
                    <Typography style={{width: 47}} align="left" variant="body2">Дата:</Typography>
-                   <Typography style={{marginLeft: "10%"}} align="left" variant="body2">{trip.date}</Typography>
+                   <Typography style={{marginLeft: "10%", opacity: 0.8}} align="left" variant="body2">{trip.date}</Typography>
                   </div>
                   <div className={classes.info}>
                     <Typography style={{width: 47}}  align="left" variant="body2">Время:</Typography>
-                    <Typography  style={{marginLeft: "10%"}} align="left" variant="body2">{trip.time}</Typography>
+                    <Typography  style={{marginLeft: "10%", opacity: 0.8}} align="left" variant="body2">{trip.time}</Typography>
                   </div>
                   <div className={classes.info}>
                     <Typography style={{width: 47}}  align="left" variant="body2">Места:</Typography>
-                    <Typography  style={{marginLeft: "10%"}} align="left" variant="body2">{trip.seats}</Typography>
+                    <Typography  style={{marginLeft: "10%", opacity: 0.8}} align="left" variant="body2">{trip.seats}</Typography>
                   </div>
                   </CardContent>
             )

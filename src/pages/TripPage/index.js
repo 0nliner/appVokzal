@@ -23,11 +23,13 @@ import pocket from '../../icons/pocket.svg';
 let useTripPageStyles = makeStyles(theme => ({
     main: {
         display: "flex",
-        flexWrap: "wrap"
+        flexWrap: "wrap",
+        
     },
     root: {
         display: "flex",
         flexWrap: "wrap",
+        justifyContent: "center",
         padding: 5,
         width: "100%"
     },
@@ -132,7 +134,7 @@ function CarSelection (props) {
                 </div>
                 <div className={classes.btnContainer}>
                     <button className={classes.btnAdd}>
-                        <Typography style={{fontSize:"9px"}} variant="caption">Добавить</Typography>
+                        <Typography style={{fontSize:"9px"}} variant="caption">Добавить автомобиль</Typography>
                         <AddIcon style={{fontSize:"25px"}} />
                     </button>
                 </div>
@@ -162,10 +164,13 @@ const aboutUseStyles = makeStyles(theme => ({
   },
   conditions: {
     marginTop: 30,
+    width: "100%"
   },
   icons: {
     display: "flex",
-    marginTop: 10
+    width: "100%",
+    marginTop: 10,
+    
   },
   icon: {
     borderRadius: "50%",
@@ -261,14 +266,13 @@ export function TripPage (props) {
 
     return (
         <DragDropContext onDropEnd={result => console.log(result)}>
-            <Box className={""}>
+            <Box>
                 <Header/>
 
-                <Container xs={"lg"}>
+                  <Container>
                     <CarSelection/>
                     <About/>
-                </Container>
-
+                  </Container>
             </Box>
         </DragDropContext>
     );

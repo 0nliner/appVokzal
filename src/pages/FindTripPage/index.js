@@ -138,7 +138,8 @@ const useServiceStyles = makeStyles( theme => ({
         alignItems: "center",
         flexDirection: "column",
         fontSize: "9px",
-        textTransform: "capitalize"
+        textTransform: "capitalize",
+        marginTop: 0
     },
     seats: {
       width: "50%",
@@ -146,7 +147,7 @@ const useServiceStyles = makeStyles( theme => ({
       justifyContent: "space-between",
       flexDirection: "column",
       padding: 0,
-      marginLeft: -20
+      marginLeft: -10
       
     },
     date: {
@@ -160,7 +161,7 @@ const useServiceStyles = makeStyles( theme => ({
       display: "flex",
       justifyContent: "space-between",
       width: "100%",
-      paddingBottom: 20
+      paddingBottom: 10
     },
     itemDelivery: {
       display: "flex",
@@ -168,6 +169,10 @@ const useServiceStyles = makeStyles( theme => ({
       flexDirection: "column",
       
     },
+    containerTab: {
+      width: "100%",
+      padding: 10
+    }
 
 }))
 
@@ -234,11 +239,12 @@ const Service = () => {
             <Tab className={classes.item} value="7" {...a11yProps('7')} label="Посылки" icon={<img src={delivery} />} />
             <Tab className={classes.item} value="8" {...a11yProps('8')} label="Спецтехника" icon={<img src={special} />} />
         </Tabs>
+        <div className={classes.containerTab}>
         {
-          ["1","2","3","4","5","6","8"].map(item => {
+          ["1","2","3","4","5"].map(item => {
             return (
               
-              <TabPanel value={value} index={item}>
+              <TabPanel style={{marginTop: 0}} value={value} index={item}>
                 <div className={classes.seats}>
                   <Typography variant="body1"> Кол-во мест: {seats.count}</Typography>
                   <div>
@@ -274,7 +280,7 @@ const Service = () => {
             )
           })
         }
-        <TabPanel value={value} index="7">
+        <TabPanel style={{marginTop: 0}} value={value} index="6">
           <div className={classes.containerDelivery}>
             <div className={classes.itemDelivery}>
               <Typography variant="caption">Ширина(см)</Typography>
@@ -345,6 +351,101 @@ const Service = () => {
                 </MuiPickersUtilsProvider>
                   </div>
         </TabPanel>
+        
+        <TabPanel style={{marginTop: 0}} value={value} index="8">
+                <div style={{display: "flex", width: "100%", padding: 0, margin: 0}}>
+                  <MuiPickersUtilsProvider  utils={DateFnsUtils}>
+                  <KeyboardDatePicker
+                  disableToolbar
+                  variant="inline"
+                  format="dd/MM/yyyy"
+                  
+                  id="date-picker-inline"
+                  label="Дата поездки "
+                  value={selectedDate}
+                  onChange={handleDateChange}
+                  KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                  }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+                </MuiPickersUtilsProvider>
+                  </div>
+        </TabPanel>
+        <TabPanel style={{marginTop: 0}} value={value} index="7">
+          <div className={classes.containerDelivery}>
+            <div className={classes.itemDelivery}>
+              <Typography variant="caption">Ширина(см)</Typography>
+              <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+                <IconButton onClick={decrement_width} style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA", width: 20, height: 20}} aria-label="remove">
+                  <RemoveIcon style={{fontSize: "12px"}} />
+                </IconButton>
+                <Typography style={{marginRight: 5, marginLeft: 5}} variant="body2">{seats.width}</Typography>
+                <IconButton onClick={increment_width} style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA", width: 20, height: 20}} aria-label="add">
+                  <AddIcon style={{fontSize: "12px"}}/>
+                </IconButton>
+              </div>
+              </div>
+              <div className={classes.itemDelivery}>
+              <Typography variant="caption">Длина(см)</Typography>
+              <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+                <IconButton onClick={decrement_length} style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA", width: 20, height: 20}} aria-label="remove">
+                  <RemoveIcon style={{fontSize: "12px"}} />
+                </IconButton>
+                <Typography style={{marginRight: 5, marginLeft: 5}} variant="body2">{seats.length}</Typography>
+                <IconButton onClick={increment_length} style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA", width: 20, height: 20}} aria-label="add">
+                  <AddIcon style={{fontSize: "12px"}}/>
+                </IconButton>
+              </div>
+              </div>
+              <div className={classes.itemDelivery}>
+              <Typography variant="caption">Вес(кг)</Typography>
+              <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+                <IconButton onClick={decrement_weight} style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA", width: 20, height: 20}} aria-label="remove">
+                  <RemoveIcon style={{fontSize: "12px"}} />
+                </IconButton>
+                <Typography style={{marginRight: 5, marginLeft: 5}} variant="body2">{seats.weight}</Typography>
+                <IconButton onClick={increment_weight} style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA", width: 20, height: 20}} aria-label="add">
+                  <AddIcon style={{fontSize: "12px"}}/>
+                </IconButton>
+              </div>
+            </div>
+          </div>
+        <div className={classes.seats}>
+                  <Typography variant="body1"> Кол-во мест: {seats.count}</Typography>
+                  <div>
+                    <IconButton onClick={decrement_count} style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA"}} aria-label="remove">
+                      <RemoveIcon style={{fontSize: "15px"}} />
+                    </IconButton>
+                    <IconButton onClick={increment_count} style={{boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)", color: "#91B3FA", marginLeft: 6}} aria-label="add">
+                    <AddIcon style={{fontSize: "15px"}}/>
+                    </IconButton>
+                  </div>
+                </div>
+                <div className={classes.date}>
+                  <MuiPickersUtilsProvider  utils={DateFnsUtils}>
+                  <KeyboardDatePicker
+                  disableToolbar
+                  variant="inline"
+                  format="dd/MM/yyyy"
+                  
+                  id="date-picker-inline"
+                  label="Дата поездки "
+                  value={selectedDate}
+                  onChange={handleDateChange}
+                  KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                  }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+                </MuiPickersUtilsProvider>
+                  </div>
+        </TabPanel>
+        </div>
         </div>
      
     )

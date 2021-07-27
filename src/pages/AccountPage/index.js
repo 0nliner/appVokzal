@@ -5,6 +5,7 @@ import {
     AccordionSummary,
     Avatar,
     Box,
+    Button,
     Container, FormControl,
     Grid, InputLabel,
     makeStyles, MenuItem, Select,
@@ -76,6 +77,18 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: "center",
         width: "80%",
         flexDirection: "column"
+    },
+    accardionCards: {
+        display: "flex",
+        flexDirection: "column",
+        boxShadow: "none"
+    },
+    btn: {
+        backgroundColor: "rgba(41, 67, 103, 1)",
+        color: "rgba(255, 255, 255, 1)",
+        fontSize: "12px",
+        textTransform: "none",
+        width: "60%"
     }
 
 }));
@@ -96,10 +109,25 @@ export function AccountPage (props) {
     let classes = useStyles();
     let reviews = [
         {
-            raiting: 3.9,
-            text: "Тестовый текст",
-            author: "Гоша Пирожочник"
-        }
+            author: "Владислав Вовк",
+            raiting: 3.4,
+            text: "Все отлично, поездка мне понравилась. Была вода и хорошая беседа."
+          },
+          {
+            author: "Качан Данила",
+            raiting: 4.0,
+            text: "Все отлично, поездка мне понравилась. Была вода и хорошая беседа."
+          },
+          {
+            author: "Анатолий Кучарян",
+            raiting: 2.9,
+            text: "Все отлично, поездка мне понравилась. Была вода и хорошая беседа."
+          },
+          {
+            author: "Анастасия Синякова",
+            raiting: 5.0,
+            text: "Все отлично, поездка мне понравилась. Была вода и хорошая беседа."
+          }
     ];
 
     return (
@@ -195,7 +223,7 @@ export function AccountPage (props) {
                                 Отзывы
                             </Typography>
                         </AccordionSummary>
-                        <AccordionDetails>
+                        <AccordionDetails className={classes.accardionCards}>
 
                             {reviews.map(review_data => <Review {...review_data}/>)}
 
@@ -205,7 +233,6 @@ export function AccountPage (props) {
 
                     <Grid container justify="center" style={{marginBottom: 40}}>
                         <Grid item className={classes.conditions}>
-                            <Typography align="left" variant="body1">Условия поездки:</Typography>
                             <div className={classes.icons}>
                                 <div className={classes.ruleIcon}><img src={baby} /></div>
                                 <div className={classes.ruleIcon}><img src={smoke} /></div>
@@ -215,7 +242,9 @@ export function AccountPage (props) {
                             </div>
                         </Grid>
                     </Grid>
-
+                    <div style={{width: "100%", display: "flex", justifyContent: "flex-end", paddingBottom: 30}}>
+                    <Button className={classes.btn} variant={"contained"} color={"primary"}>Текущая поездка</Button>
+                    </div>
                 </Grid>
             </Container>
         </Box>);
