@@ -12,7 +12,7 @@ import {ArrowDropDownSharp} from "@material-ui/icons";
 
 import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions'
 import '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css'
-
+import MapboxClient from 'mapbox'
 
 mapboxgl.accessToken = "pk.eyJ1IjoibjBubGluZXIiLCJhIjoiY2txNmNmN3BvMWJ1NzJwb2M1czc3ZWZ6NSJ9.860SgUxyGaAWIGja2sOugw";
 
@@ -104,6 +104,18 @@ export function MapPage (props) {
             }),
             'top-left'
         );
+        var client = new MapboxClient(mapboxgl.accessToken);
+        console.log(client)
+        function success(pos) {
+            var crd = pos.coords;
+          
+            console.log('Ваше текущее местоположение:');
+            console.log(`Широта: ${crd.latitude}`);
+            console.log(`Долгота: ${crd.longitude}`);
+            console.log(`Плюс-минус ${crd.accuracy} метров.`);
+          };
+
+        console.log(navigator.geolocation.getCurrentPosition(success))
 
         // let controls = document.querySelector(".mapbox-directions-component mapbox-directions-inputs");
         // console.log(controls);
