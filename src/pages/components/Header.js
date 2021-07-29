@@ -17,7 +17,8 @@ const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
         boxShadow: "none",
-        background: "transparent"
+        background: "transparent",
+        width: "100%",
     },
     menuButton: {
         color: "rgba(62, 89, 130, 1)",
@@ -53,7 +54,7 @@ export function Header() {
     };
     //
     return (
-        <div >
+        <div style={{width: "100%"}}>
             <AppBar className={classes.root} position="static">
                 <Toolbar>
                     <Nav color="rgba(62, 89, 130, 1)" className={classes.menuButton}/>

@@ -1,0 +1,64 @@
+
+.mapboxgl-ctrl-top-right .mapboxgl-ctrl {
+  position: fixed;
+  bottom: 100px;
+  right: 5px;
+}
+
+.mapboxgl-ctrl-top-right .mapboxgl-ctrl:nth-child(2) {
+  position: fixed;
+  bottom: 200px;
+  right: 5px;
+}
+.mapboxgl-ctrl-top-right .mapboxgl-ctrl:nth-child(3) {
+  position: fixed;
+  bottom: 50px;
+  width: 40%;
+  left:15px;
+}
+
+.mapboxgl-ctrl-bottom-left {
+  display: none;
+}
+
+.mapboxgl-ctrl-bottom-right {
+  display: none;
+}
+
+#root > div > div > div.makeStyles-map-1.mapboxgl-map > div.mapboxgl-control-container > div.mapboxgl-ctrl-top-right > div.mapboxgl-ctrl-geocoder.mapboxgl-ctrl > div.suggestions-wrapper {
+  position: absolute;
+  bottom: 50px;
+
+}
+
+#root > div > div > div.makeStyles-map-1.mapboxgl-map > div.mapboxgl-control-container > div.mapboxgl-ctrl-top-right > div.mapboxgl-ctrl-geocoder.mapboxgl-ctrl > div.suggestions-wrapper > ul {
+  position: relative;
+  display: flex !important;
+  flex-direction: column-reverse;
+  max-width: 40%;
+  min-width: 40%;
+}
+
+.mapboxgl-ctrl-geocoder input[type='text'] {
+  padding: 6px 45px;
+}
+.mapboxgl-ctrl-geocoder--icon-search {
+  position: absolute;
+  top: 10px !important;
+  left: 12px;
+  width: 23px;
+  height: 23px;
+}
+.mapboxgl-ctrl-geocoder--icon-close {
+  margin-top: 5px !important;
+}
+.mapboxgl-ctrl-geocoder .mapboxgl-ctrl-geocoder--pin-right > * {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.MuiIconButton-edgeStart {
+  margin-left: 0 !important;
+}
+

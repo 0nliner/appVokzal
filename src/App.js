@@ -17,7 +17,7 @@ import { createStore } from 'redux';
 import { root_reducer } from './redux/findTrips/reducers';
 import { Provider } from 'react-redux';
 import {ActiveTripPage} from "./pages/ActiveTripPage";
-
+import { MapSearchPage } from "./pages/MapSearchPage";
 function App() {
   const store = createStore(root_reducer);
 
@@ -41,6 +41,7 @@ function App() {
               <Route path={"/findTrip"} component={FindTripPage}/>
               <Route path={"/observeTrip"} component={ObserveTrip}/>
               <Route path={"/map"} component={MapPage}/>
+              <Route path={"/mapSearch"} component={MapSearchPage}/>
               <Route path={"/dialog"} component={DialogPage}/>
               <Route path={"/path"} component={MapPage}/>
               <Route path={"/active_trip"} component={ActiveTripPage}/>

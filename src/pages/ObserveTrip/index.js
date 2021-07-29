@@ -450,12 +450,12 @@ const Pay = () => {
 export const ObserveTrip = (props) => {
     
     return (
-        <Container>
+        <div>
             <Header />
             <About />
             <Auto />
             <Comments />
             <Pay />
-        </Container>
+        </div>
     )
 }
