@@ -21,7 +21,7 @@ import smsSVG from  "../../icons/SMS.svg";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import {Places} from "../components/Places";
 import {Review} from "../components/Review";
-
+import MediaQuery from 'react-responsive'
 import baby from "../../icons/baby.svg";
 import smoke from "../../icons/smoke.svg";
 import dog from "../../icons/dog.svg";
@@ -49,8 +49,8 @@ const useStyles = makeStyles((theme) => ({
 
 
     large: {
-        width: theme.spacing(8),
-        height: theme.spacing(8),
+        width: theme.spacing(11),
+        height: theme.spacing(11),
     },
     information: {
         paddingLeft: 40
@@ -69,6 +69,16 @@ const useStyles = makeStyles((theme) => ({
         alignItems: "center",
         width: 40,
         height: 40,
+        background: "#E8E8E8",
+        marginLeft: 10
+    },
+    ruleIcon2: {
+        borderRadius: "50%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: 50,
+        height: 50,
         background: "#E8E8E8",
         marginLeft: 10
     },
@@ -143,7 +153,7 @@ export function AccountPage (props) {
                     <Grid item xs={8} style={{paddingLeft: 10}}>
                         <Grid container style={{marginTop: 20}} direction={"column"}>
                             <Typography style={{color: "#294367",
-                                                fontSize: 13}}
+                                                fontSize: 14}}
                                         align={"left"}>
                                 <b>
                                     Бонгобонго - 20 лет
@@ -154,11 +164,11 @@ export function AccountPage (props) {
                         </Grid>
 
                         <Grid container direction={"column"}>
-                            <Typography align={"left"} variant={"caption"}>
+                            <Typography style={{fontSize: "13px"}} align={"left"} variant={"caption"}>
                                 Маршрут: <span style={{color: "#757575"}}>Казань - спб</span>
                             </Typography>
 
-                            <Typography align={"left"} variant={"caption"}>
+                            <Typography style={{fontSize: "12px"}} align={"left"} variant={"caption"}>
                                 Телефон: <span style={{color: "#757575"}}>+7(999)-999-99-99</span>
                             </Typography>
                         </Grid>
@@ -234,11 +244,20 @@ export function AccountPage (props) {
                     <Grid container justify="center" style={{marginBottom: 40}}>
                         <Grid item className={classes.conditions}>
                             <div className={classes.icons}>
+                                <MediaQuery maxWidth={373}>
                                 <div className={classes.ruleIcon}><img src={baby} /></div>
                                 <div className={classes.ruleIcon}><img src={smoke} /></div>
                                 <div className={classes.ruleIcon}><img src={dog} /></div>
                                 <div className={classes.ruleIcon}><img src={song} /></div>
                                 <div className={classes.ruleIcon}><img src={pocket} /></div>
+                                </MediaQuery>
+                                <MediaQuery minWidth={374}>
+                                <div className={classes.ruleIcon2}><img src={baby} /></div>
+                                <div className={classes.ruleIcon2}><img src={smoke} /></div>
+                                <div className={classes.ruleIcon2}><img src={dog} /></div>
+                                <div className={classes.ruleIcon2}><img src={song} /></div>
+                                <div className={classes.ruleIcon2}><img src={pocket} /></div>
+                                </MediaQuery>
                             </div>
                         </Grid>
                     </Grid>

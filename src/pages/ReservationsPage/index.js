@@ -12,11 +12,11 @@ function Reservation (props) {
                 </Grid>
 
                 <Grid item xs={9} direction={"column"}>
-                    <Typography style={{color: "#91B3FA"}} align={"left"}>
+                    <Typography style={{color: "#91B3FA", fontSize: "17px"}} align={"left"}>
                         {props.name}
                     </Typography>
                     <Container style={{margin: 0,padding: 0, display: "flex",justifyContent: "flex-start", opacity: "0.8" }}>
-                        <Typography variant="caption" align="left">
+                        <Typography  variant="caption" align="left">
                         {props.date}
                         </Typography>
                         <Typography style={{paddingLeft: 10}} variant="caption" align="left">

@@ -43,13 +43,13 @@ export function Review ({raiting, text, author}) {
                 <Card className={classes.card}>
                   <CardContent>
                     <div className={classes.cardHeader}>
-                      <Typography style={{fontSize: "11px"}}>{author}</Typography>
+                      <Typography style={{fontSize: "13px"}}>{author}</Typography>
                       <div style={{display: "flex", alignItems: "center"}}>
-                        <Typography style={{fontSize: "9px"}}variant="caption">{raiting}</Typography>
-                        <StarIcon style={{color: "#FFA011", fontSize: "12px"}} />
+                        <Typography style={{fontSize: "11px"}}variant="caption">{raiting}</Typography>
+                        <StarIcon style={{color: "#FFA011", fontSize: "14px"}} />
                       </div>
                     </div>
-                    <Typography align="left" style={{fontSize: "10px"}}>{text}</Typography>
+                    <Typography align="left" style={{fontSize: "12px"}}>{text}</Typography>
                   </CardContent>
                 </Card>
     );

@@ -1,5 +1,4 @@
 import {Header} from "../components/Header";
-
 import {
     Accordion,
     AccordionDetails,
@@ -30,7 +29,8 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import {Places} from "../components/Places";
-
+import { useMediaQuery } from 'react-responsive';
+import MediaQuery from 'react-responsive';
 import autoPicture from '../../images/auto.png';
 import autoicon from '../../icons/MyCar 1.svg';
 import cardPay from '../../icons/card.svg';
@@ -99,12 +99,22 @@ const About = () => {
                 <Avatar className={classes.avatar} src={avatar}></Avatar>
                   <div className={classes.name}>
                     <div className={classes.username}>
-                      <Typography style={{fontSize: "13px"}} variant="body2">Elon Musk</Typography>
+                    <MediaQuery maxWidth={374}>
+                    <Typography style={{fontSize: "13px"}} variant="body2">Elon Musk</Typography>
                       <Typography style={{fontSize: "9px"}} variant="caption">49 лет</Typography>
                       <div style={{display: "flex", alignItems: "center"}}>
                         <Typography style={{fontSize: "10px"}}variant="caption">2,9</Typography>
                         <StarIcon style={{color: "#FFA011", fontSize: "12px"}} />
                       </div>
+                    </MediaQuery>
+                    <MediaQuery minWidth={375}>
+                      <Typography style={{fontSize: "16px"}} variant="body2">Elon Musk</Typography>
+                      <Typography style={{fontSize: "12px"}} variant="caption">49 лет</Typography>
+                      <div style={{display: "flex", alignItems: "center"}}>
+                        <Typography style={{fontSize: "13px"}}variant="caption">2,9</Typography>
+                        <StarIcon style={{color: "#FFA011", fontSize: "15px"}} />
+                      </div>
+                      </MediaQuery>
                     </div>
                     <div className={classes.way}>
             <Timeline style={{marginTop: 10, padding: 0}}>
@@ -113,11 +123,21 @@ const About = () => {
                   <TimelineDot />
                   <TimelineConnector />
                 </TimelineSeparator>
+                <MediaQuery maxWidth={374}>
                 <TimelineContent style={{textAlign: "left", paddingLeft: 15, fontSize: "11px"}}>Казань</TimelineContent>
+                </MediaQuery>
+                <MediaQuery minWidth={375}>
+                <TimelineContent style={{textAlign: "left", paddingLeft: 15, fontSize: "14px"}}>Казань</TimelineContent>
+                </MediaQuery>
               </TimelineItem >
               <TimelineItem className={classes.item}>
                   <TimelineDot />
+                  <MediaQuery maxWidth={374}>
                 <TimelineContent style={{textAlign: "left", paddingLeft: 15, fontSize: "11px"}}>Сочи</TimelineContent>
+                  </MediaQuery>
+                  <MediaQuery minWidth={375}>
+                <TimelineContent style={{textAlign: "left", paddingLeft: 15, fontSize: "14px"}}>Сочи</TimelineContent>
+                  </MediaQuery>
               </TimelineItem>
               </Timeline>
                     </div>
@@ -125,8 +145,14 @@ const About = () => {
                   
             </Container>
            <Container className={classes.price}>
-             <Typography style={{fontSize: "9px"}}> Цена за место: {500} руб</Typography>
-             <Typography style={{fontSize: "9px"}}> Свободных мест: {3}</Typography>
+             <MediaQuery maxWidth={374}>
+              <Typography style={{fontSize: "11px"}}> Цена за место: {500} руб</Typography>
+              <Typography style={{fontSize: "11px"}}> Свободных мест: {3}</Typography>
+             </MediaQuery>
+             <MediaQuery minWidth={375}>
+              <Typography style={{fontSize: "13px"}}> Цена за место: {500} руб</Typography>
+              <Typography style={{fontSize: "13px"}}> Свободных мест: {3}</Typography>
+             </MediaQuery>
            </Container>
         </Container>
     )
@@ -200,18 +226,34 @@ const Auto = () => {
     <Container className={classes.root}>
       <Typography align="left" variant="body2">Автомобиль:</Typography>
       <div className={classes.auto}>
+        <MediaQuery maxWidth={374}>
         <div className={classes.item}>
-          <Typography style={{fontSize: "8px"}}>Модель</Typography>
-          <Typography style={{fontSize: "6px"}}>{"Tesla model x"}</Typography>
+          <Typography style={{fontSize: "10px"}}>Модель</Typography>
+          <Typography style={{fontSize: "8px"}}>{"Tesla model x"}</Typography>
         </div>
         <div className={classes.item}>
-          <Typography style={{fontSize: "8px"}}>Класс</Typography>
-          <Typography style={{fontSize: "6px"}}>{"Комфорт"}</Typography>
+          <Typography style={{fontSize: "10px"}}>Класс</Typography>
+          <Typography style={{fontSize: "8px"}}>{"Комфорт"}</Typography>
         </div>
         <div className={classes.item}>
-          <Typography style={{fontSize: "8px"}}>Цвет</Typography>
-          <Typography style={{fontSize: "6px"}}>{"Белый"}</Typography>
+          <Typography style={{fontSize: "10px"}}>Цвет</Typography>
+          <Typography style={{fontSize: "8px"}}>{"Белый"}</Typography>
         </div>
+        </MediaQuery>
+        <MediaQuery minWidth={375}>
+        <div className={classes.item}>
+          <Typography style={{fontSize: "12px"}}>Модель</Typography>
+          <Typography style={{fontSize: "10px"}}>{"Tesla model x"}</Typography>
+        </div>
+        <div className={classes.item}>
+          <Typography style={{fontSize: "12px"}}>Класс</Typography>
+          <Typography style={{fontSize: "10px"}}>{"Комфорт"}</Typography>
+        </div>
+        <div className={classes.item}>
+          <Typography style={{fontSize: "12px"}}>Цвет</Typography>
+          <Typography style={{fontSize: "10px"}}>{"Белый"}</Typography>
+        </div>
+        </MediaQuery>
       </div>
       <div className={classes.seats}>
         <img className={classes.image}  src={autoPicture}></img>
@@ -336,13 +378,13 @@ const Comments = () => {
                 <Card className={classes.card}>
                   <CardContent>
                     <div className={classes.cardHeader}>
-                      <Typography style={{fontSize: "11px"}}>{item.name}</Typography>
+                      <Typography style={{fontSize: "13px"}}>{item.name}</Typography>
                       <div style={{display: "flex", alignItems: "center"}}>
-                        <Typography style={{fontSize: "9px"}}variant="caption">{item.stars}</Typography>
-                        <StarIcon style={{color: "#FFA011", fontSize: "12px"}} />
+                        <Typography style={{fontSize: "11px"}}variant="caption">{item.stars}</Typography>
+                        <StarIcon style={{color: "#FFA011", fontSize: "14px"}} />
                       </div>
                     </div>
-                    <Typography align="left" style={{fontSize: "10px"}}>{item.comment}</Typography>
+                    <Typography align="left" style={{fontSize: "12px"}}>{item.comment}</Typography>
                   </CardContent>
                 </Card>
               )
@@ -405,7 +447,7 @@ btnBack: {
 btnChoice: {
   backgroundColor: "rgba(41, 67, 103, 1)",
   color: "rgba(255, 255, 255, 1)",
-  fontSize: "12px",
+  fontSize: "13px",
   textTransform: "none",
   width: "70%",
   marginLeft: 20

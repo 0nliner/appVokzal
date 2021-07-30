@@ -8,6 +8,7 @@ import {
     RadioGroup, TextField,
     Typography
 } from "@material-ui/core";
+import MediaQuery from 'react-responsive'
 import auto from '../../images/auto.png'
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import {Header} from "../components/Header";
@@ -34,8 +35,8 @@ let useTripPageStyles = makeStyles(theme => ({
         width: "100%"
     },
     media: {
-        height: 60,
-        width: 110,
+        height: 80,
+        width: 130,
         backgroundSize: "cover",
         color: "rgba(255,255,255,0.8)",
         display: "flex",
@@ -88,8 +89,8 @@ function CarSelection (props) {
                                 image={auto}
                                 title="Contemplative Reptile"
                             >   
-                                <Typography style={{fontSize: "8px"}} variant="caption">Toyota Corolla</Typography>
-                                <CreateIcon style={{fontSize: "11px"}}  />
+                                <Typography style={{fontSize: "10px"}} variant="caption">Toyota Corolla</Typography>
+                                <CreateIcon style={{fontSize: "13px"}}  />
                             </CardMedia>
                         </CardActionArea>
                     </Card>
@@ -100,8 +101,8 @@ function CarSelection (props) {
                                 className={classes.media}
                                 image={auto}
                             >   
-                                <Typography style={{fontSize: "8px"}} variant="caption">Toyota Corolla</Typography>
-                                <CreateIcon style={{fontSize: "11px"}}  />
+                                <Typography style={{fontSize: "10px"}} variant="caption">Toyota Corolla</Typography>
+                                <CreateIcon style={{fontSize: "13px"}}  />
                             </CardMedia>
                         </CardActionArea>
                     </Card>
@@ -113,8 +114,8 @@ function CarSelection (props) {
                                 image={auto}
                                
                             >   
-                                <Typography style={{fontSize: "8px"}} variant="caption">Toyota Corolla</Typography>
-                                <CreateIcon style={{fontSize: "11px"}}  />
+                                <Typography style={{fontSize: "10px"}} variant="caption">Toyota Corolla</Typography>
+                                <CreateIcon style={{fontSize: "13px"}}  />
                             </CardMedia>
                         </CardActionArea>
                     </Card>
@@ -126,15 +127,15 @@ function CarSelection (props) {
                                 image={auto}
                                 
                             >   
-                               <Typography style={{fontSize: "8px"}} variant="caption">Toyota Corolla</Typography>
-                                <CreateIcon style={{fontSize: "11px"}}  />
+                               <Typography style={{fontSize: "10px"}} variant="caption">Toyota Corolla</Typography>
+                                <CreateIcon style={{fontSize: "13px"}}  />
                             </CardMedia>
                         </CardActionArea>
                     </Card>
                 </div>
                 <div className={classes.btnContainer}>
                     <button className={classes.btnAdd}>
-                        <Typography style={{fontSize:"9px"}} variant="caption">Добавить автомобиль</Typography>
+                        <Typography style={{fontSize:"12px"}} variant="caption">Добавить автомобиль</Typography>
                         <AddIcon style={{fontSize:"25px"}} />
                     </button>
                 </div>
@@ -156,8 +157,8 @@ const aboutUseStyles = makeStyles(theme => ({
     alignItems: "center"
   },
   large: {
-    width: theme.spacing(8),
-    height: theme.spacing(8),
+    width: theme.spacing(11),
+    height: theme.spacing(11),
   },
   information: {
     paddingLeft: 40
@@ -173,6 +174,16 @@ const aboutUseStyles = makeStyles(theme => ({
     
   },
   icon: {
+    borderRadius: "50%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: 50,
+    height: 50,
+    background: "#E8E8E8",
+    marginLeft: 10
+  },
+  icon2: {
     borderRadius: "50%",
     display: "flex",
     justifyContent: "center",
@@ -211,21 +222,38 @@ function About (props) {
                   <Avatar src={auto} className={classes.large} />
                 </div>
                 <div className={classes.information}>
-                  <Typography align="left" variant="h6">Густав Маск</Typography>
-                  <Typography style={{fontSize: "10px"}} align="left" variant="body2">Телефон: <span style={{opacity: 0.7}}>+7(999)-999-99-99</span></Typography>
-                  <Typography style={{fontSize: "10px"}} align="left" variant="body2">Email: <span style={{opacity: 0.7}}>sahar@gmail.com</span></Typography>
-                  <Typography style={{fontSize: "10px"}} align="left" variant="caption">Водительское удостоверение</Typography>
+                  <MediaQuery maxWidth={374}>
+                    <Typography align="left" variant="h6">Густав Маск</Typography>
+                    <Typography style={{fontSize: "9px"}} align="left" variant="body2">Телефон: <span style={{opacity: 0.7}}>+7(999)-999-99-99</span></Typography>
+                    <Typography style={{fontSize: "9px"}} align="left" variant="body2">Email: <span style={{opacity: 0.7}}>sahar@gmail.com</span></Typography>
+                    <Typography style={{fontSize: "8px"}} align="left" variant="caption">Водительское удостоверение</Typography>
+                  </MediaQuery>
+                  <MediaQuery minWidth={375}>
+                    <Typography align="left" variant="h5">Густав Маск</Typography>
+                    <Typography style={{fontSize: "12px"}} align="left" variant="body2">Телефон: <span style={{opacity: 0.7}}>+7(999)-999-99-99</span></Typography>
+                    <Typography style={{fontSize: "12px"}} align="left" variant="body2">Email: <span style={{opacity: 0.7}}>sahar@gmail.com</span></Typography>
+                    <Typography style={{fontSize: "12px"}} align="left" variant="caption">Водительское удостоверение</Typography>
+                  </MediaQuery>
                 </div>
 
               </div>
               <div className={classes.conditions}>
                 <Typography align="left" variant="body1">Условия поездки:</Typography>
                 <div className={classes.icons}>
-                  <div className={classes.icon}><img src={baby} /></div>
-                  <div className={classes.icon}><img src={smoke} /></div>
-                  <div className={classes.icon}><img src={dog} /></div>
-                  <div className={classes.icon}><img src={song} /></div>
-                  <div className={classes.icon}><img src={pocket} /></div>
+                  <MediaQuery minWidth={375}>
+                    <div className={classes.icon}><img src={baby} /></div>
+                    <div className={classes.icon}><img src={smoke} /></div>
+                    <div className={classes.icon}><img src={dog} /></div>
+                    <div className={classes.icon}><img src={song} /></div>
+                    <div className={classes.icon}><img src={pocket} /></div>
+                  </MediaQuery>
+                  <MediaQuery maxWidth={374}>
+                    <div className={classes.icon2}><img src={baby} /></div>
+                    <div className={classes.icon2}><img src={smoke} /></div>
+                    <div className={classes.icon2}><img src={dog} /></div>
+                    <div className={classes.icon2}><img src={song} /></div>
+                    <div className={classes.icon2}><img src={pocket} /></div>
+                  </MediaQuery>
                 </div>
               </div>
               <Accordion style={{marginTop: 25}}>

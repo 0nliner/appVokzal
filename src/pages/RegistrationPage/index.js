@@ -23,7 +23,7 @@ let useStyles = makeStyles(theme => ({
     btn: {
         backgroundColor: "rgba(41, 67, 103, 1)",
         color: "rgba(255, 255, 255, 1)",
-        fontSize: "12px",
+        fontSize: "14px",
         textTransform: "none"
     },
     
@@ -39,7 +39,7 @@ export function RegistrationPage (props) {
                 APPVOKZAL
             </Typography>
 
-            <Typography variant={"h6"} style={{marginTop: 20, fontSize: "15px", fontWeight: "600"}}>
+            <Typography variant={"h6"} style={{marginTop: 20, fontSize: "16px", fontWeight: "600"}}>
                 Регистрация
             </Typography>
 

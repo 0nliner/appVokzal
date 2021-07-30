@@ -139,7 +139,7 @@ const useServiceStyles = makeStyles( theme => ({
         flexDirection: "column",
         fontSize: "9px",
         textTransform: "capitalize",
-        marginTop: 0
+        marginTop: 0,
     },
     seats: {
       width: "50%",
@@ -229,15 +229,15 @@ const Service = () => {
         <div>
         <Tabs  variant="scrollable" value={value} onChange={handleChange} indicatorColor="primary" textColor="primary" className={classes.root}>
             
-            <Tab className={classes.item} value="1" {...a11yProps('1')} label="Попутчик" icon={<img src={poput} />} />
+            <Tab className={classes.item} value="1" {...a11yProps('1')} label="Попутчик" icon={<img style={{width: 40}} src={poput} />} />
             
-            <Tab className={classes.item} value="2" {...a11yProps('2')} label="Эконом" icon={<img src={econom} />} />
-            <Tab className={classes.item} value="3" {...a11yProps('3')} label="Комфорт" icon={<img src={comfort} />} />
-            <Tab className={classes.item} value="4" {...a11yProps('4')} label="Минивэн" icon={<img src={mini} />} />
-            <Tab className={classes.item} value="5" {...a11yProps('5')} label="Автобус" icon={<img src={bus} />} />
-            <Tab className={classes.item} value="6" {...a11yProps('6')} label="Грузовые" icon={<img src={gruz} />} />
-            <Tab className={classes.item} value="7" {...a11yProps('7')} label="Посылки" icon={<img src={delivery} />} />
-            <Tab className={classes.item} value="8" {...a11yProps('8')} label="Спецтехника" icon={<img src={special} />} />
+            <Tab className={classes.item} value="2" {...a11yProps('2')} label="Эконом" icon={<img style={{width: 20}} src={econom} />} />
+            <Tab className={classes.item} value="3" {...a11yProps('3')} label="Комфорт" icon={<img style={{width: 40}} src={comfort} />} />
+            <Tab className={classes.item} value="4" {...a11yProps('4')} label="Минивэн" icon={<img style={{width: 40}} src={mini} />} />
+            <Tab className={classes.item} value="5" {...a11yProps('5')} label="Автобус" icon={<img style={{width: 22}} src={bus} />} />
+            <Tab className={classes.item} value="6" {...a11yProps('6')} label="Грузовые" icon={<img style={{width: 40}} src={gruz} />} />
+            <Tab className={classes.item} value="7" {...a11yProps('7')} label="Посылки" icon={<img style={{width: 25}} src={delivery} />} />
+            <Tab className={classes.item} value="8" {...a11yProps('8')} label="Спецтехника" icon={<img style={{width: 40}} src={special} />} />
         </Tabs>
         <div className={classes.containerTab}>
         {

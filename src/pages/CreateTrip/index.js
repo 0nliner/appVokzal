@@ -12,7 +12,7 @@ const createTripUseStyles = makeStyles(theme => ({
  btnChoice: {
    backgroundColor: "rgba(41, 67, 103, 1)",
    color: "rgba(255, 255, 255, 1)",
-   fontSize: "12px",
+   fontSize: "14px",
    width: "70%",
    marginTop: 30
  }
