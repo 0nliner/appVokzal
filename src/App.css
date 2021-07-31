@@ -42,3 +42,20 @@
 .mapboxgl-ctrl-top-left {
   display: none !important;
 }
+
+
+
+.cascfwf {
+  font-size: 10px;
+}
+
+@media (min-width:360px) {
+  .cascfwf {
+    font-size: 13px !important;
+    line-height: 14px !important;
+  }
+
+  .pathTopbar {
+    min-height: 60px !important;
+  }
+}

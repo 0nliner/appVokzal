@@ -13,6 +13,7 @@ import {ArrowDropDownSharp} from "@material-ui/icons";
 import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions'
 import '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css'
 import MapboxClient from 'mapbox'
+import {useTheme} from "@material-ui/core/styles";
 
 mapboxgl.accessToken = "pk.eyJ1IjoibjBubGluZXIiLCJhIjoiY2txNmNmN3BvMWJ1NzJwb2M1czc3ZWZ6NSJ9.860SgUxyGaAWIGja2sOugw";
 
@@ -57,6 +58,7 @@ export function MapPage (props) {
 
     const mapContainer = useRef(null);
     const map = useRef(null);
+    const theme = useTheme();
 
     // TODO:
     //   нам приходят названия городов
@@ -81,7 +83,7 @@ export function MapPage (props) {
     const [lng2, setLng2] = useState();
     const [lat2, setLat2] = useState();
 
-    const [showReason, setShowReason] = useState(true);
+    const [showReason, setShowReason] = useState(false);
 
 
     const [showDropdown, setShowDropdown] = useState(false);
@@ -104,8 +106,10 @@ export function MapPage (props) {
             }),
             'top-left'
         );
-        var client = new MapboxClient(mapboxgl.accessToken);
-        console.log(client)
+
+        let client = new MapboxClient(mapboxgl.accessToken);
+        // console.log(client)
+
         function success(pos) {
             var crd = pos.coords;
           
@@ -146,7 +150,7 @@ export function MapPage (props) {
             <div ref={mapContainer} className={classes.map}  />
 
 
-            <Grid container direction={"row"} className={classes.topbar}>
+            <Grid container direction={"row"} className={`${classes.topbar} pathTopbar`}>
 
                 <Grid item xs={6} direction={"row"} justify={"space-between"} style={{position: "relative"}}>
                     <Avatar src={test_img}/>
@@ -156,27 +160,33 @@ export function MapPage (props) {
 
                 <Grid item derection={"column"} xs={6}>
                     <Typography align="left"
+                                // className={}
+                                className={"cascfwf"}
                                 style={{
-                                    fontSize: "9px",
+                                    // fontSize: "9px",
+                                    fontSize: 10,
                                     lineHeight: "11px"
                                 }}>
                         машина: Lada ведро
                     </Typography>
                     <Typography align="left"
+                                className={"cascfwf"}
                                 style={{
-                                    fontSize: "9px",
+                                    fontSize: 10,
                                     lineHeight: "11px"
                                 }}>
                         номер: x220вт
                     </Typography>
                     <Typography align="left"
+                                className={"cascfwf"}
                                 style={{
-                                    fontSize: "9px",
+                                    fontSize: 10,
                                     lineHeight: "11px"
                                 }}>
                         цвет авто: белый
                     </Typography>
                     <Typography align="left"
+                                className={"cascfwf"}
                                 style={{
                                     fontSize: "9px",
                                     lineHeight: "11px"

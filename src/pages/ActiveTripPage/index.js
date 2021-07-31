@@ -89,11 +89,12 @@ export function ActiveTripPage (props) {
         <Box>
             {/*<Header/>*/}
             {/* topbar */}
-            <Grid container direction={"column"} className={classes.topbar}>
+            <Grid container direction={"column"} className={`${classes.topbar} pathTopbar`}>
 
                 <Grid container direction={"row"}>
                     <Grid item derection={"column"} xs={8} alignItems={"center"}>
                         <Typography align="left"
+                                    className={"cascfwf"}
                                     style={{
                                         fontSize: "9px",
                                         lineHeight: "11px",
@@ -102,6 +103,7 @@ export function ActiveTripPage (props) {
                             время в пути: 1:32
                         </Typography>
                         <Typography align="left"
+                                    className={"cascfwf"}
                                     style={{
                                         fontSize: "9px",
                                         lineHeight: "11px"
@@ -109,6 +111,7 @@ export function ActiveTripPage (props) {
                             осталось: 32км (30 минут)
                         </Typography>
                         <Typography align="left"
+                                    className={"cascfwf"}
                                     style={{
                                         fontSize: "9px",
                                         lineHeight: "11px"
@@ -117,7 +120,7 @@ export function ActiveTripPage (props) {
                         </Typography>
                     </Grid>
 
-                    <Grid item xs={4} justify={"center"} alignItems={"center"}>
+                    <Grid item xs={4} justify={"center"} alignItems={"center"} style={{display: "flex"}}>
                         <Grid item>
                             <Typography align={"center"}>
                                 <b>

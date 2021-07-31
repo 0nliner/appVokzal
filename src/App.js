@@ -18,40 +18,52 @@ import { root_reducer } from './redux/findTrips/reducers';
 import { Provider } from 'react-redux';
 import {ActiveTripPage} from "./pages/ActiveTripPage";
 import { MapSearchPage } from "./pages/MapSearchPage";
+import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles'
+
+
+const theme = createMuiTheme({
+  status: {
+    danger: "black",
+  }
+});
+
+
 function App() {
   const store = createStore(root_reducer);
 
   return (
-      <Provider store={store}>
-        <BrowserRouter>
-          <div className="App">
-            <Switch>
-              <Route path={"/"} exact component={AccountPage}/>
+      <ThemeProvider theme={theme}>
+        <Provider store={store}>
+          <BrowserRouter>
+            <div className="App">
+              <Switch>
+                <Route path={"/"} exact component={AccountPage}/>
 
-              <Route path={"/login"} component={LoginPage}/>
-              <Route path={"/registration"} component={RegistrationPage}/>
-              {/*<Route path={"/personalArea"} component={PersonalArea}/>*/}
-              <Route path={"/trip"} component={TripPage}/>
-              <Route path={"/trips"} component={TripsPage}/>
-              <Route path={"/account"} component={AccountPage}/>
-              <Route path={"/reservations"} component={ReservationsPage}/>
-              <Route path={"/createTrip"} component={CreateTrip}/>
+                <Route path={"/login"} component={LoginPage}/>
+                <Route path={"/registration"} component={RegistrationPage}/>
+                {/*<Route path={"/personalArea"} component={PersonalArea}/>*/}
+                <Route path={"/trip"} component={TripPage}/>
+                <Route path={"/trips"} component={TripsPage}/>
+                <Route path={"/account"} component={AccountPage}/>
+                <Route path={"/reservations"} component={ReservationsPage}/>
+                <Route path={"/createTrip"} component={CreateTrip}/>
 
-              {/* клиентская часть */}
-              <Route path={"/findTrip"} component={FindTripPage}/>
-              <Route path={"/observeTrip"} component={ObserveTrip}/>
-              <Route path={"/map"} component={MapPage}/>
-              <Route path={"/mapSearch"} component={MapSearchPage}/>
-              <Route path={"/dialog"} component={DialogPage}/>
-              <Route path={"/path"} component={MapPage}/>
-              <Route path={"/active_trip"} component={ActiveTripPage}/>
+                {/* клиентская часть */}
+                <Route path={"/findTrip"} component={FindTripPage}/>
+                <Route path={"/observeTrip"} component={ObserveTrip}/>
+                <Route path={"/map"} component={MapPage}/>
+                <Route path={"/mapSearch"} component={MapSearchPage}/>
+                <Route path={"/dialog"} component={DialogPage}/>
+                <Route path={"/path"} component={MapPage}/>
+                <Route path={"/active_trip"} component={ActiveTripPage}/>
 
-            </Switch>
+              </Switch>
 
 
-          </div>
-        </BrowserRouter>
-      </Provider>
+            </div>
+          </BrowserRouter>
+        </Provider>
+      </ThemeProvider>
   );
 }
 
